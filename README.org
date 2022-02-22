@@ -25,7 +25,6 @@
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/init.el :mkdirp yes
 ;;; init.el -*- lexical-binding: t; -*-
 #+END_SRC
-
 *** This file controls what Doom modules are enabled and what order they load in. Remember to run 'doom sync' after modifying it!
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/init.el
 (doom! :input
@@ -342,6 +341,14 @@
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq doom-themes-treemacs-theme "doom-colors")
 #+END_SRC
+*** dired
+#+begin_src emacs-lisp :tangle ~/.doom.d/config.el
+(add-hook 'dired-mode-hook
+ (lambda ()
+  (define-key dired-mode-map (kbd "-")
+    (lambda () (interactive) (find-alternate-file "..")))
+ ))
+#+end_src
 ** packages.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el :mkdirp yes
 ;; -*- no-byte-compile: t; -*-
@@ -729,8 +736,8 @@ debug:
 
 #+END_SRC
 * bspwm
-#+BEGIN_SRC shell :tangle ~/.config/bspwm/bspwmrc :mkdirp yes
-#!/bin/sh
+#+BEGIN_SRC shell :tangle ~/.config/bspwm/bspwmrc :mkdirp yes :tangle-mode (identity #o755)
+#! /bin/sh
 
 # STARTUP
 #pgrep -x sxhkd > /dev/null || sxhkd &
@@ -771,7 +778,7 @@ bspc rule -a Emacs desktop='^2' state=tiled follow=on
 # bspc rule -a \* state=tiled
 #+END_SRC
 * sxhkd
-#+BEGIN_SRC conf :tangle ~/.config/sxhkd/sxhkdrc :mkdirp yes
+#+BEGIN_SRC conf :tangle ~/.config/sxhkd/sxhkdrc :mkdirp yes :tangle-mode (identity #o755)
 #
 # wm independent hotkeys
 #
@@ -1009,7 +1016,10 @@ alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 set -U fish_greeting
 
 # info in the terminal
-pfetch
+#pfetch
+
+# shell color scripts
+colorscript random
 
 # export MPD_HOST="127.0.0.1"
 # export MPD_PORT="6601"
@@ -1053,7 +1063,7 @@ padding-left = 0
 padding-right = 0
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
 font-0 = JetBrains Mono:pixelsize=10;1
 font-1 = JetBrains Mono:pixelsize=10;1
@@ -1065,7 +1075,7 @@ modules-right = pulseaudio filesystem memory cpu date powermenu
 
 tray-position = right
 tray-detached = false
-tray-padding = 0
+tray-padding = 3
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -1210,7 +1220,7 @@ margin-bottom = 5
 ; vim:ft=dosini
 #+end_src
 ** launch config
-#+begin_src shell :tangle ~/.config/polybar/launch.sh :mkdirp yes
+#+begin_src shell :tangle ~/.config/polybar/launch.sh :mkdirp yes :tangle-mode (identity #o755)
 #!/bin/sh
 
 # Terminate already running bar instances
@@ -1258,7 +1268,7 @@ port "6601"
 #+end_src
 * ncmpcpp
 ** ncmpcpp_notify
-#+begin_src shell :tangle ~/.ncmpcpp/ncmpcpp_notify.sh :mkdirp yes
+#+begin_src shell :tangle ~/.ncmpcpp/ncmpcpp_notify.sh :mkdirp yes :tangle-mode (identity #o755)
 #!/bin/bash
 
 # Send notification with album art when ncmpcpp plays a new song
