@@ -24,10 +24,11 @@
 ** init.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/init.el :mkdirp yes
 ;;; init.el -*- lexical-binding: t; -*-
+#+END_SRC
 
-;; This file controls what Doom modules are enabled and what order they load
-;; in. Remember to run 'doom sync' after modifying it!
++ This file controls what Doom modules are enabled and what order they load in. Remember to run 'doom sync' after modifying it!
 
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/init.el
 (doom! :input
        ;;chinese
        ;;japanese
