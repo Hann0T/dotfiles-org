@@ -3,7 +3,7 @@
 
 * doom
 ** init.el
-#+BEGIN_SRC emacs-lisp :tangle ./.doom.d/init.el :mkdirp yes
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/init.el :mkdirp yes
 ;;; init.el -*- lexical-binding: t; -*-
 
 ;; This file controls what Doom modules are enabled and what order they load
@@ -184,7 +184,7 @@
        (default +bindings +smartparens))
 #+END_SRC
 ** config.el
-#+BEGIN_SRC emacs-lisp :tangle ./.doom.d/config.el :mkdirp yes
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el :mkdirp yes
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
@@ -330,7 +330,7 @@
 
 #+END_SRC
 ** pacakges.el
-#+BEGIN_SRC emacs-lisp :tangle ./.doom.d/packages.el :mkdirp yes
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el :mkdirp yes
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
@@ -356,7 +356,7 @@
 
 ** snippets
 *** rjsx-mode
-#+begin_src conf :tangle ./.doom.d/snippets/rjsx-mode/react-function-component-javascript :mkdirp yes
+#+begin_src conf :tangle ~/.doom.d/snippets/rjsx-mode/react-function-component-javascript :mkdirp yes
 # -*- mode: snippet -*-
 # name: react function component javascript
 # key: rfc
@@ -371,7 +371,7 @@ export default $1;
 #+end_src
 *** typescript-tsx-mode
 **** import-default
-#+begin_src conf :tangle ./.doom.d/snippets/typescript-tsx-mode/import-default :mkdirp yes
+#+begin_src conf :tangle ~/.doom.d/snippets/typescript-tsx-mode/import-default :mkdirp yes
 # -*- mode: snippet -*-
 # name: import default
 # key: imd
@@ -382,7 +382,7 @@ $0
 
 #+end_src
 **** react-function-component-typescript
-#+begin_src conf :tangle ./.doom.d/snippets/typescript-tsx-mode/react-function-component-typescript :mkdirp yes
+#+begin_src conf :tangle ~/.doom.d/snippets/typescript-tsx-mode/react-function-component-typescript :mkdirp yes
 # -*- mode: snippet -*-
 # name: react funcion component typescript
 # key: rfct
@@ -396,7 +396,7 @@ const $1: React.FC = () => {
 export default $1;
 #+end_src
 * alacritty
-#+BEGIN_SRC conf :tangle ./alacritty/alacritty.yml :mkdirp yes
+#+BEGIN_SRC conf :tangle ~/.config/alacritty/alacritty.yml :mkdirp yes
 window:
   # Window dimensions (changes require restart)
   #
@@ -718,7 +718,7 @@ debug:
 
 #+END_SRC
 * bspwm
-#+BEGIN_SRC shell :tangle ./bspwm/bspwmrc :mkdirp yes
+#+BEGIN_SRC shell :tangle ~/.config/bspwm/bspwmrc :mkdirp yes
 #!/bin/sh
 
 # STARTUP
@@ -760,7 +760,7 @@ bspc rule -a Emacs desktop='^2' state=tiled follow=on
 # bspc rule -a \* state=tiled
 #+END_SRC
 * sxhkd
-#+BEGIN_SRC conf :tangle ./sxhkd/sxhkdrc :mkdirp yes
+#+BEGIN_SRC conf :tangle ~/.config/sxhkd/sxhkdrc :mkdirp yes
 #
 # wm independent hotkeys
 #
@@ -919,7 +919,7 @@ super + Print
 	flameshot full -c
 #+END_SRC
 * dunst
-#+begin_src conf :tangle ./dunst/dunstrc :mkdirp yes
+#+begin_src conf :tangle ~/.config/dunst/dunstrc :mkdirp yes
 [global]
     monitor = 0
     follow = mouse
@@ -1010,7 +1010,7 @@ starship init fish | source
 #+END_SRC
 * polybar
 ** theme config
-#+begin_src conf :tangle ./polybar/config :mkdirp yes
+#+begin_src conf :tangle ~/.config/polybar/config :mkdirp yes
 [colors]
 ;background = ${xrdb:color0:#282c34}
 background = #282c34
@@ -1199,7 +1199,7 @@ margin-bottom = 5
 ; vim:ft=dosini
 #+end_src
 ** launch config
-#+begin_src shell :tangle ./polybar/launch.sh :mkdirp yes
+#+begin_src shell :tangle ~/.config/polybar/launch.sh :mkdirp yes
 #!/bin/sh
 
 # Terminate already running bar instances
@@ -1216,7 +1216,7 @@ echo "Bars launched..."
 #+end_src
 
 * mpd
-#+begin_src conf :tangle ./.mpd/mpd.conf :mkdirp yes
+#+begin_src conf :tangle ~/.mpd/mpd.conf :mkdirp yes
 music_directory "/media/hann0t/Music"
 playlist_directory "/media/hann0t/Music/playlists"
 db_file "/home/hann0t/.mpd/mpd.db"
@@ -1247,7 +1247,7 @@ port "6601"
 #+end_src
 * ncmpcpp
 ** ncmpcpp_notify
-#+begin_src shell :tangle ./.ncmpcpp/ncmpcpp_notify.sh :mkdirp yes
+#+begin_src shell :tangle ~/.ncmpcpp/ncmpcpp_notify.sh :mkdirp yes
 #!/bin/bash
 
 # Send notification with album art when ncmpcpp plays a new song
@@ -1261,7 +1261,7 @@ readonly ALBUM_ART_PATH="${MUSIC_DIR}/${SONG_DIR}/cover.ico"
 notify-send -i "${ALBUM_ART_PATH}" "♫ Now Playing ♫" "$(mpc --format '%title% - %artist%' current)"
 #+end_src
 ** config
-#+begin_src conf :tangle ./.ncmpcpp/config :mkdir yes
+#+begin_src conf :tangle ~/.ncmpcpp/config :mkdir yes
 #######################################################################
 ##   This is configuration file. Copy it to $HOME/.ncmpcpp/config    ##
 ##  or $XDG_CONFIG_HOME/ncmpcpp/config and set up your preferences   ##
