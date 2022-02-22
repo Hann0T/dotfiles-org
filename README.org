@@ -1,6 +1,25 @@
 #+TITLE: Index
 #+STARTUP: fold
 
+* Table of Contents :toc:
+- [[#doom][doom]]
+  - [[#initel][init.el]]
+  - [[#configel][config.el]]
+  - [[#pacakgesel][pacakges.el]]
+  - [[#snippets][snippets]]
+- [[#alacritty][alacritty]]
+- [[#bspwm][bspwm]]
+- [[#sxhkd][sxhkd]]
+- [[#dunst][dunst]]
+- [[#fish][fish]]
+- [[#polybar][polybar]]
+  - [[#theme-config][theme config]]
+  - [[#launch-config][launch config]]
+- [[#mpd][mpd]]
+- [[#ncmpcpp][ncmpcpp]]
+  - [[#ncmpcpp_notify][ncmpcpp_notify]]
+  - [[#config][config]]
+
 * doom
 ** init.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/init.el :mkdirp yes
