@@ -5,7 +5,7 @@
 - [[#doom][doom]]
   - [[#initel][init.el]]
   - [[#configel][config.el]]
-  - [[#pacakgesel][pacakges.el]]
+  - [[#packagesel][packages.el]]
   - [[#snippets][snippets]]
 - [[#alacritty][alacritty]]
 - [[#bspwm][bspwm]]
@@ -342,31 +342,29 @@
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq doom-themes-treemacs-theme "doom-colors")
 #+END_SRC
-** pacakges.el
+** packages.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el :mkdirp yes
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
-
-;; modes
+#+END_SRC
+*** modes
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
 (package! web-mode)
 (package! css-mode)
-
-;; formatting
+#+END_SRC
+*** format
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
 (package! prettier-js)
-
-;; utilities
+#+END_SRC
+*** utilities
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
 (package! js-doc)
-(package! yasnippet)
-
-;; org
+#+END_SRC
+*** org
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
 (package! org-super-agenda)
 (package! org-superstar)
-
-;; vim
-(package! evil-easymotion)
-(package! evil-surround)
 #+END_SRC
-
 ** snippets
 *** rjsx-mode
 #+begin_src conf :tangle ~/.doom.d/snippets/rjsx-mode/react-function-component-javascript :mkdirp yes
