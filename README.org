@@ -26,8 +26,7 @@
 ;;; init.el -*- lexical-binding: t; -*-
 #+END_SRC
 
-+ This file controls what Doom modules are enabled and what order they load in. Remember to run 'doom sync' after modifying it!
-
+*** This file controls what Doom modules are enabled and what order they load in. Remember to run 'doom sync' after modifying it!
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/init.el
 (doom! :input
        ;;chinese
@@ -206,59 +205,31 @@
 ** config.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el :mkdirp yes
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
+#+END_SRC
+*** basic configuration
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq user-full-name "Hans Olivas"
       user-mail-address "hansolivas1@gmail.com")
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'normal)
       doom-big-font(font-spec :family "JetBrains Mono" :size 18 :weight 'normal))
-
+#+END_SRC
+*** emacs theme
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq doom-theme 'doom-one)
-
 (setq display-line-numbers-type 'relative)
-
+#+END_SRC
+*** default shell for emacs
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq-default shell-file-name "/usr/bin/fish")
-
-;; ProjectTile config
+#+END_SRC
+*** project tile dir config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq projectile-project-search-path '("~/Development/"))
-
-;: modes config
-
-;; web-mode config
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-;; rjsx-mode config
-(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-;; typescript-mode
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
-;; js-doc
-(add-hook 'rjsx-mode-hook
-           #'(lambda ()
-               (define-key rjsx-mode-map "\C-ck" 'js-doc-insert-function-doc)
-               (define-key rjsx-mode-map "@" 'js-doc-insert-tag)))
-(add-hook 'typescript-mode-hook
-           #'(lambda ()
-               (define-key typescript-mode-map "\C-ck" 'tide-jsdoc-template)
-               (define-key typescript-mode-map "@" 'js-doc-insert-tag)))
-(add-hook 'typescript-tsx-mode-hook
-           #'(lambda ()
-               (define-key typescript-tsx-mode-map "\C-ck" 'tide-jsdoc-template)
-               (define-key typescript-tsx-mode-map "@" 'js-doc-insert-tag)))
-
-;; prettier config
+#+END_SRC
+*** prettier config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (require 'prettier-js)
-
-(add-hook 'js2-mode-hook 'prettier-js-mode)
-(add-hook 'rjsx-mode-hook 'prettier-js-mode)
-(add-hook 'typescript-mode-hook 'prettier-js-mode)
-(add-hook 'web-mode-hook 'prettier-js-mode)
-(add-hook 'css-mode-hook 'prettier-js-mode)
-(add-hook 'json-mode-hook 'prettier-js-mode)
-(add-hook 'php-mode-hook 'prettier-js-mode)
-
 (setq prettier-js-args '(
   "--tab-width" "2"
   "--trailing-comma" "all"
@@ -268,8 +239,41 @@
   "--bracket-same-line" "false"
   "--quote-props" "preserve"
 ))
-
-;; org-mode
+(add-hook 'json-mode-hook 'prettier-js-mode)
+(add-hook 'php-mode-hook 'prettier-js-mode)
+#+END_SRC
+*** web mode config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-hook 'web-mode-hook 'prettier-js-mode)
+(add-hook 'css-mode-hook 'prettier-js-mode)
+#+END_SRC
+*** javascript config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+(add-hook 'rjsx-mode-hook
+           #'(lambda ()
+               (define-key rjsx-mode-map "\C-ck" 'js-doc-insert-function-doc)
+               (define-key rjsx-mode-map "@" 'js-doc-insert-tag)))
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'rjsx-mode-hook 'prettier-js-mode)
+#+END_SRC
+*** typescript config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+(add-hook 'typescript-mode-hook
+           #'(lambda ()
+               (define-key typescript-mode-map "\C-ck" 'tide-jsdoc-template)
+               (define-key typescript-mode-map "@" 'js-doc-insert-tag)))
+(add-hook 'typescript-tsx-mode-hook
+           #'(lambda ()
+               (define-key typescript-tsx-mode-map "\C-ck" 'tide-jsdoc-template)
+               (define-key typescript-tsx-mode-map "@" 'js-doc-insert-tag)))
+(add-hook 'typescript-mode-hook 'prettier-js-mode)
+#+END_SRC
+*** org mode config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq org-archive-location "~/Documents/org/done.org")
 
 (defun org-archive-save-buffer ()
@@ -286,8 +290,9 @@
 (setq org-directory "~/Documents/org/")
 (setq org-agenda-files "~/Documents/org/agenda.org")
 (setq org-log-done 'time)
-
-;; org-super-agenda config
+#+END_SRC
+*** org agenda config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (use-package! org-super-agenda
   :after org-agenda
   :init
@@ -306,18 +311,12 @@
                                         :tag "bo")))
   :config
   (org-super-agenda-mode))
-
-;; org-super-star
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-
-;; org-agenda
 (setq org-agenda-files
       (directory-files-recursively "~/Documents/org/" "\\.org$"))
-
-
-;; KEYBINDINGS
-
-;; vterm
+#+END_SRC
+*** keybindings
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (map! :leader
       :desc "open vterm"
       "v t" #'vterm)
@@ -326,28 +325,22 @@
       :desc "open vterm in the current buffer"
       "v T" #'+vterm/here)
 
-;; evil-mode
 (after! evil-snipe
   (evil-snipe-mode -1))
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
-;; easy-motion
 (evilem-default-keybindings "SPC")
 
-;; global key bindings
 (global-set-key (kbd "M-k")   #'drag-stuff-up)
 (global-set-key (kbd "M-j") #'drag-stuff-down)
 (global-set-key (kbd "M-l") #'sp-backward-barf-sexp)
 (global-set-key (kbd "M-h") #'sp-backward-slurp-sexp)
 (global-set-key (kbd "C-M-l") #'downcase-word)
-
-;; dashboard image
-;; (setq fancy-splash-image "~/Pictures/etc/komi-san-2-small.jpg")
-
-;; icons
+#+END_SRC
+*** treemacs config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq doom-themes-treemacs-theme "doom-colors")
-
 #+END_SRC
 ** pacakges.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el :mkdirp yes
