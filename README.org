@@ -1,0 +1,1418 @@
+#+TITLE: Index
+#+STARTUP: fold
+
+* doom
+** init.el
+#+BEGIN_SRC emacs-lisp :tangle ./.doom.d/init.el :mkdirp yes
+;;; init.el -*- lexical-binding: t; -*-
+
+;; This file controls what Doom modules are enabled and what order they load
+;; in. Remember to run 'doom sync' after modifying it!
+
+(doom! :input
+       ;;chinese
+       ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
+
+       :completion
+       company           ; the ultimate code completion backend
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       ;;ivy               ; a search engine for love and life
+       (vertico +icons)           ; the search engine of the future
+
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;(emoji +unicode)  ; 🙂
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;hydra
+       ;;indent-guides     ; highlighted indent columns
+       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       ;;minimap           ; show a map of the code on the side
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       ;;neotree           ; a project drawer, like NERDTree for vim
+       ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       ;;tabs              ; a tab bar for Emacs
+       treemacs          ; a project drawer, like neotree but cooler
+       ;;unicode           ; extended unicode support for various languages
+       vc-gutter         ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;window-select     ; visually switch windows
+       workspaces        ; tab emulation, persistence & separate workspaces
+       ;;zen               ; distraction-free coding or writing
+
+       :editor
+       (evil +everywhere); come to the dark side, we have cookies
+       file-templates    ; auto-snippets for empty files
+       fold              ; (nigh) universal code folding
+       ;;(format +onsave)  ; automated prettiness
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       multiple-cursors  ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       ;;parinfer          ; turn lisp into python, sort of
+       ;;rotate-text       ; cycle region at point between text candidates
+       snippets          ; my elves. They type so I don't have to
+       ;;word-wrap         ; soft wrapping with language-aware indent
+
+       :emacs
+       (dired +icons)             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       (ibuffer +icons)         ; interactive buffer management
+       undo              ; persistent, smarter undo for your inevitable mistakes
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+       ;;eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       vterm             ; the best terminal emulation in Emacs
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       ;;(spell +flyspell) ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+
+       :tools
+       ;;ansible
+       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       ;;direnv
+       docker
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       (eval +overlay)     ; run code, run (also, repls)
+       ;;gist              ; interacting with github gists
+       lookup              ; navigate your code and its documentation
+       lsp               ; M-x vscode
+       magit             ; a git porcelain for Emacs
+       ;;make              ; run make tasks from Emacs
+       ;;pass              ; password manager for nerds
+       ;;pdf               ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       ;;rgb               ; creating color strings
+       ;;taskrunner        ; taskrunner for all your projects
+       ;;terraform         ; infrastructure as code
+       ;;tmux              ; an API for interacting with tmux
+       ;;upload            ; map local to remote projects via ssh/ftp
+
+       :os
+       ;;(:if IS-MAC macos)  ; improve compatibility with macOS
+       ;;tty               ; improve the terminal Emacs experience
+
+       :lang
+       ;;agda              ; types of types of types of types...
+       ;;beancount         ; mind the GAAP
+       ;;cc                ; C > C++ == 1
+       ;;clojure           ; java with a lisp
+       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;csharp            ; unity, .NET, and mono shenanigans
+       ;;data              ; config/data formats
+       ;;(dart +flutter)   ; paint ui and not much else
+       ;;dhall
+       ;;elixir            ; erlang done right
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       ;;erlang            ; an elegant language for a more civilized age
+       ;;ess               ; emacs speaks statistics
+       ;;factor
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fsharp            ; ML stands for Microsoft's Language
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       ;;gdscript          ; the language you waited for
+       ;;(go +lsp)         ; the hipster dialect
+       ;;(haskell +lsp)    ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ; a language you can depend on
+       json              ; At least it ain't XML
+       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       ;;julia             ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       ;;latex             ; writing papers in Emacs has never been so fun
+       ;;lean              ; for folks with too much to prove
+       ;;ledger            ; be audit you can be
+       ;;lua               ; one-based indices? one-based indices
+       markdown          ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;;ocaml             ; an objective camel
+       org               ; organize your plain life in plain text
+       (php +lsp)               ; perl's insecure younger brother
+       ;;plantuml          ; diagrams for confusing people more
+       ;;purescript        ; javascript, but functional
+       ;;python            ; beautiful is better than ugly
+       ;;qt                ; the 'cutest' gui framework ever
+       ;;racket            ; a DSL for DSLs
+       ;;raku              ; the artist formerly known as perl6
+       ;;rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;;scala             ; java, but good
+       ;;(scheme +guile)   ; a fully conniving family of lisps
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ;;sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       ;;web               ; the tubes
+       yaml              ; JSON, but readable
+       ;;zig               ; C, but simpler
+
+       :email
+       ;;(mu4e +org +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+
+       :app
+       ;;calendar
+       ;;emms
+       ;;everywhere        ; *leave* Emacs!? You must be joking
+       ;;irc               ; how neckbeards socialize
+       ;;(rss +org)        ; emacs as an RSS reader
+       ;;twitter           ; twitter client https://twitter.com/vnought
+
+       :config
+       ;;literate
+       (default +bindings +smartparens))
+#+END_SRC
+** config.el
+#+BEGIN_SRC emacs-lisp :tangle ./.doom.d/config.el :mkdirp yes
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; Place your private configuration here! Remember, you do not need to run 'doom
+;; sync' after modifying this file!
+
+(setq user-full-name "Hans Olivas"
+      user-mail-address "hansolivas1@gmail.com")
+
+(setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'normal)
+      doom-big-font(font-spec :family "JetBrains Mono" :size 18 :weight 'normal))
+
+(setq doom-theme 'doom-one)
+
+(setq display-line-numbers-type 'relative)
+
+(setq-default shell-file-name "/usr/bin/fish")
+
+;; ProjectTile config
+(setq projectile-project-search-path '("~/Development/"))
+
+;: modes config
+
+;; web-mode config
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+;; rjsx-mode config
+(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+;; typescript-mode
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+;; js-doc
+(add-hook 'rjsx-mode-hook
+           #'(lambda ()
+               (define-key rjsx-mode-map "\C-ck" 'js-doc-insert-function-doc)
+               (define-key rjsx-mode-map "@" 'js-doc-insert-tag)))
+(add-hook 'typescript-mode-hook
+           #'(lambda ()
+               (define-key typescript-mode-map "\C-ck" 'tide-jsdoc-template)
+               (define-key typescript-mode-map "@" 'js-doc-insert-tag)))
+(add-hook 'typescript-tsx-mode-hook
+           #'(lambda ()
+               (define-key typescript-tsx-mode-map "\C-ck" 'tide-jsdoc-template)
+               (define-key typescript-tsx-mode-map "@" 'js-doc-insert-tag)))
+
+;; prettier config
+(require 'prettier-js)
+
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'rjsx-mode-hook 'prettier-js-mode)
+(add-hook 'typescript-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+(add-hook 'css-mode-hook 'prettier-js-mode)
+(add-hook 'json-mode-hook 'prettier-js-mode)
+(add-hook 'php-mode-hook 'prettier-js-mode)
+
+(setq prettier-js-args '(
+  "--tab-width" "2"
+  "--trailing-comma" "all"
+  "--single-quote" "true"
+  "--jsx-single-quote" "true"
+  "--bracket-spacing" "true"
+  "--bracket-same-line" "false"
+  "--quote-props" "preserve"
+))
+
+;; org-mode
+(setq org-archive-location "~/Documents/org/done.org")
+
+(defun org-archive-save-buffer ()
+  (let ((afile (org-extract-archive-file (org-get-local-archive-location))))
+    (if (file-exists-p afile)
+      (let ((buffer (find-file-noselect afile)))
+        (if (y-or-n-p (format "Save (%s)" buffer))
+          (with-current-buffer buffer
+            (save-buffer))
+          (message "You expressly chose _not_ to save (%s)" buffer)))
+      (message "Ooops ... (%s) does not exist." afile))))
+
+(add-hook 'org-archive-hook 'org-archive-save-buffer)
+(setq org-directory "~/Documents/org/")
+(setq org-agenda-files "~/Documents/org/agenda.org")
+(setq org-log-done 'time)
+
+;; org-super-agenda config
+(use-package! org-super-agenda
+  :after org-agenda
+  :init
+  (setq org-super-agenda-groups '((:name "Today"
+                                        :time-grid t
+                                        :scheduled today)
+                                  (:name "Due Today"
+                                        :deadline today)
+                                  (:name "Important"
+                                        :priority "A")
+                                  (:name "Overdue"
+                                        :deadline past)
+                                  (:name "Due soon"
+                                        :deadline future)
+                                  (:name "Big Outcomes"
+                                        :tag "bo")))
+  :config
+  (org-super-agenda-mode))
+
+;; org-super-star
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+
+;; org-agenda
+(setq org-agenda-files
+      (directory-files-recursively "~/Documents/org/" "\\.org$"))
+
+
+;; KEYBINDINGS
+
+;; vterm
+(map! :leader
+      :desc "open vterm"
+      "v t" #'vterm)
+
+(map! :leader
+      :desc "open vterm in the current buffer"
+      "v T" #'+vterm/here)
+
+;; evil-mode
+(after! evil-snipe
+  (evil-snipe-mode -1))
+
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
+
+;; easy-motion
+(evilem-default-keybindings "SPC")
+
+;; global key bindings
+(global-set-key (kbd "M-k")   #'drag-stuff-up)
+(global-set-key (kbd "M-j") #'drag-stuff-down)
+(global-set-key (kbd "M-l") #'sp-backward-barf-sexp)
+(global-set-key (kbd "M-h") #'sp-backward-slurp-sexp)
+(global-set-key (kbd "C-M-l") #'downcase-word)
+
+;; dashboard image
+;; (setq fancy-splash-image "~/Pictures/etc/komi-san-2-small.jpg")
+
+;; icons
+(setq doom-themes-treemacs-theme "doom-colors")
+
+#+END_SRC
+** pacakges.el
+#+BEGIN_SRC emacs-lisp :tangle ./.doom.d/packages.el :mkdirp yes
+;; -*- no-byte-compile: t; -*-
+;;; $DOOMDIR/packages.el
+
+;; modes
+(package! web-mode)
+(package! css-mode)
+
+;; formatting
+(package! prettier-js)
+
+;; utilities
+(package! js-doc)
+(package! yasnippet)
+
+;; org
+(package! org-super-agenda)
+(package! org-superstar)
+
+;; vim
+(package! evil-easymotion)
+(package! evil-surround)
+#+END_SRC
+
+** snippets
+*** rjsx-mode
+#+begin_src conf :tangle ./.doom.d/snippets/rjsx-mode/react-function-component-javascript :mkdirp yes
+# -*- mode: snippet -*-
+# name: react function component javascript
+# key: rfc
+# --
+
+const $1 = () => {
+  return $0;
+};
+
+export default $1;
+
+#+end_src
+*** typescript-tsx-mode
+**** import-default
+#+begin_src conf :tangle ./.doom.d/snippets/typescript-tsx-mode/import-default :mkdirp yes
+# -*- mode: snippet -*-
+# name: import default
+# key: imd
+# --
+
+import $1 from '$2'
+$0
+
+#+end_src
+**** react-function-component-typescript
+#+begin_src conf :tangle ./.doom.d/snippets/typescript-tsx-mode/react-function-component-typescript :mkdirp yes
+# -*- mode: snippet -*-
+# name: react funcion component typescript
+# key: rfct
+# --
+import React from 'react';
+
+const $1: React.FC = () => {
+  return $0;
+};
+
+export default $1;
+#+end_src
+* alacritty
+#+BEGIN_SRC conf :tangle ./alacritty/alacritty.yml :mkdirp yes
+window:
+  # Window dimensions (changes require restart)
+  #
+  # Specified in number of columns/lines, not pixels. If both are zero this
+  # setting is ignored.
+  dimensions:
+    columns: 120
+    lines: 30
+
+  # Window padding (changes require restart)
+  #
+  # Blank space added around the window in pixels. This padding is not scaled by
+  # DPI and the specified value is always added at both opposing sides.
+  padding:
+    x: 0
+    y: 0
+
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: false
+
+  # Window decorations
+  #
+  # Available values:
+  # - full: borders and title bar
+  # - none: neither borders nor title bar
+  # - transparent: title bar, transparent background and title bar buttons
+  # - buttonless: title bar, transparent background, but no title bar buttons
+  decorations: full
+
+  # Startup Mode (changes require restart)
+  #
+  # Values for `startup_mode`:
+  #   - Windowed
+  #   - Maximized
+  #   - Fullscreen
+  #
+  # Values for `startup_mode` (macOS only):
+  #   - SimpleFullscreen
+  startup_mode: Windowed
+
+scrolling:
+  # How many lines of scrollback to keep,
+  # '0' will disable scrolling.
+  history: 10000
+
+  # Number of lines the viewport will move for every line
+  # scrolled when scrollback is enabled (history > 0).
+  multiplier: 3
+
+  # Faux Scrolling
+  #
+  # The `faux_multiplier` setting controls the number
+  # of lines the terminal should scroll when the alternate
+  # screen buffer is active. This is used to allow mouse
+  # scrolling for applications like `man`.
+  #
+  # To disable this completely, set `faux_multiplier` to 0.
+  faux_multiplier: 3
+
+  # Automatically scroll to the bottom when new text is written
+  # to the terminal.
+  auto_scroll: false
+
+# Font configuration (changes require restart)
+font:
+  # The normal (roman) font face to use.
+  # Style can be specified to pick a specific face.
+  normal:
+    family: JetBrains Mono
+    style: Regular
+
+  # The bold font face
+  bold:
+    family: JetBrains Mono
+    style: Bold
+
+  # The italic font face
+  italic:
+    family: JetBrains Mono
+    style: Italic
+
+  # Point size of the font
+  size: 14.0
+
+  # Offset is the extra space around each character. offset.y can be thought of
+  # as modifying the linespacing, and offset.x as modifying the letter spacing.
+  offset:
+    x: 0
+    y: 0
+
+  # Glyph offset determines the locations of the glyphs within their cells with
+  # the default being at the bottom. Increase the x offset to move the glyph to
+  # the right, increase the y offset to move the glyph upward.
+  glyph_offset:
+    x: 0
+    y: 0
+
+# When true, bold text is drawn using the bright variant of colors.
+draw_bold_text_with_bright_colors: false
+
+# Use custom cursor colors. If true, display the cursor in the cursor.foreground
+# and cursor.background colors, otherwise invert the colors of the cursor.
+custom_cursor_colors: true
+
+# Theme doom-one
+colors:
+    primary:
+        background: '#282c34'
+        foreground: '#bbc2cf'
+    cursor:
+        cursor: '#4CA6E3'
+        text: '#BABABA'
+    normal:
+        black: '#3E4556'
+        red: '#E56160'
+        green: '#88AB5A'
+        yellow: '#D4AB6E'
+        blue: '#4CA6E3'
+        magenta: '#c678dd'
+        cyan: '#3FC3E5'
+        white: '#DFDFD9'
+    bright:
+        black: '#5B6268'
+        red: '#ff6c6b'
+        green: '#98be65'
+        yellow: '#ECBE7B'
+        blue: '#51afef'
+        magenta: '#a9a1e1'
+        cyan: '#46D9FF'
+        white: '#f8f8f2'
+
+# Background opacity
+window.opacity: 1.0
+
+# Key bindings
+#
+# Key bindings are specified as a list of objects. Each binding will specify a
+# key and modifiers required to trigger it, terminal modes where the binding is
+# applicable, and what should be done when the key binding fires. It can either
+# send a byte sequence to the running application (`chars`), execute a
+# predefined action (`action`) or fork and execute a specified command plus
+# arguments (`command`).
+#
+# Bindings are always filled by default, but will be replaced when a new binding
+# with the same triggers is defined. To unset a default binding, it can be
+# mapped to the `None` action.
+#
+# Example:
+#   `- { key: V, mods: Control|Shift, action: Paste }`
+#
+# Available fields:
+#   - key
+#   - mods (optional)
+#   - chars | action | command (exactly one required)
+#   - mode (optional)
+#
+# Values for `key`:
+#   - `A` -> `Z`
+#   - `F1` -> `F12`
+#   - `Key1` -> `Key0`
+#
+#   A full list with available key codes can be found here:
+#   https://docs.rs/glutin/*/glutin/enum.VirtualKeyCode.html#variants
+#
+#   Instead of using the name of the keys, the `key` field also supports using
+#   the scancode of the desired key. Scancodes have to be specified as a
+#   decimal number.
+#   This command will allow you to display the hex scancodes for certain keys:
+#     `showkey --scancodes`
+#
+# Values for `mods`:
+#   - Command
+#   - Control
+#   - Option
+#   - Super
+#   - Shift
+#   - Alt
+#
+#   Multiple `mods` can be combined using `|` like this: `mods: Control|Shift`.
+#   Whitespace and capitalization is relevant and must match the example.
+#
+# Values for `chars`:
+#   The `chars` field writes the specified string to the terminal. This makes
+#   it possible to pass escape sequences.
+#   To find escape codes for bindings like `PageUp` ("\x1b[5~"), you can run
+#   the command `showkey -a` outside of tmux.
+#   Note that applications use terminfo to map escape sequences back to
+#   keys. It is therefore required to update the terminfo when
+#   changing an escape sequence.
+#
+# Values for `action`:
+#   - Paste
+#   - PasteSelection
+#   - Copy
+#   - IncreaseFontSize
+#   - DecreaseFontSize
+#   - ResetFontSize
+#   - ScrollPageUp
+#   - ScrollPageDown
+#   - ScrollLineUp
+#   - ScrollLineDown
+#   - ScrollToTop
+#   - ScrollToBottom
+#   - ClearHistory
+#   - Hide
+#   - Quit
+#   - ClearLogNotice
+#   - SpawnNewInstance
+#   - ToggleFullscreen
+#   - None
+#
+# Values for `action` (macOS only):
+#   - ToggleSimpleFullscreen: Enters fullscreen without occupying another space
+#
+# Values for `command`:
+#   The `command` field must be a map containing a `program` string and
+#   an `args` array of command line parameter strings.
+#
+#   Example:
+#       `command: { program: "alacritty", args: ["-e", "vttest"] }`
+#
+# Values for `mode`:
+#   - ~AppCursor
+#   - AppCursor
+#   - ~AppKeypad
+#   - AppKeypad
+#
+key_bindings:
+  - { key: Equals,   mods: Control,       action: IncreaseFontSize             }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize             }
+  - { key: Minus,    mods: Control|Alt, action: ResetFontSize                }
+
+  - { key: PageUp,   mods: Control,   action: ScrollPageUp   }
+  - { key: PageDown, mods: Control,   action: ScrollPageDown }
+  - { key: End,      mods: Control,   action: ScrollToBottom }
+  - { key: Home,     mods: Control,   action: ScrollToTop    }
+
+  - { key: K,        mods: Control, action: ClearHistory   }
+
+mouse:
+  # Click settings
+  #
+  # The `double_click` and `triple_click` settings control the time
+  # alacritty should wait for accepting multiple clicks as one double
+  # or triple click.
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing: true
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
+
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard: false
+
+# Mouse bindings
+#
+# Available fields:
+# - mouse
+# - action
+# - mods (optional)
+#
+# Values for `mouse`:
+# - Middle
+# - Left
+# - Right
+# - Numeric identifier such as `5`
+#
+# All available `mods` and `action` values are documented in the key binding
+# section.
+mouse_bindings:
+  - { mouse: Middle, action: PasteSelection }
+
+cursor:
+  # Cursor style
+  #
+  # Values for 'style':
+  #   - ▇ Block
+  #   - _ Underline
+  #   - | Beam
+  style: Block
+
+  # If this is `true`, the cursor will be rendered as a hollow box when the
+  # window is not focused.
+  unfocused_hollow: true
+
+# dynamic_title: false
+
+# Live config reload (changes require restart)
+live_config_reload: true
+
+debug:
+  # Should display the render timer
+  render_timer: false
+
+  # Keep the log file after quitting Alacritty.
+  persistent_logging: false
+
+  # Log level
+  #
+  # Values for `log_level`:
+  #   - OFF
+  #   - ERROR
+  #   - WARN
+  #   - INFO
+  #   - DEBUG
+  #   - TRACE
+  log_level: OFF
+
+  # Print all received window events.
+  print_events: false
+
+  # Record all characters and escape sequences as test data.
+  ref_test: false
+
+# vim: nospell
+
+#+END_SRC
+* bspwm
+#+BEGIN_SRC shell :tangle ./bspwm/bspwmrc :mkdirp yes
+#!/bin/sh
+
+# STARTUP
+#pgrep -x sxhkd > /dev/null || sxhkd &
+sxhkd &
+nm-applet &
+$HOME/.config/polybar/launch.sh
+feh --bg-fill ~/wallpapers/wallpaper-chainsawman-03.jpg
+emacs --daemon &
+redshift -P -O 2500
+# monitor
+xrandr --output DP-1 --mode 1920x1080 --rate 119.98
+
+# virtual Desktops
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config border_width         2
+bspc config window_gap          10
+
+#BSPWM coloring
+bspc config normal_border_color "#bbc2cf"
+bspc config active_border_color "#bbc2cf"
+bspc config focused_border_color "#4ca6e3"
+bspc config presel_feedback_color "#5e81ac"
+
+bspc config split_ratio          0
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a firefox desktop='^1'
+bspc rule -a Google-chrome desktop='^1'
+bspc rule -a Emacs desktop='^2' state=tiled follow=on
+# bspc rule -a Gimp desktop='^8' state=floating follow=on
+# bspc rule -a mplayer2 state=floating
+# bspc rule -a Kupfer.py focus=on
+# bspc rule -a Screenkey manage=off
+
+# all application on tiled
+# bspc rule -a \* state=tiled
+#+END_SRC
+* sxhkd
+#+BEGIN_SRC conf :tangle ./sxhkd/sxhkdrc :mkdirp yes
+#
+# wm independent hotkeys
+#
+
+# terminal emulator
+super + Return
+	alacritty
+
+# program launcher
+super + shift + p
+	rofi -show run -theme Monokai
+
+# program launcher (Apps)
+super + p
+	rofi -show drun -theme Monokai -icon-theme "Tela-circle" -show-icons
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+
+# close and kill
+super + {_,shift + } q
+	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+#
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# volume control
+XF86AudioLowerVolume
+	amixer set Master 5%-
+XF86AudioRaiseVolume
+	amixer set Master 5%+
+XF86AudioMute
+	amixer set Master toggle
+
+# brightness control
+XF86MonBrightnessDown
+	sudo xbacklight -dec 5
+XF86MonBrightnessUp
+	sudo xbacklight -inc 5
+
+# lock screen
+super + x
+	betterlockscreen -l
+
+# emacs
+super + e
+	emacsclient -c -a 'emacs'
+super + d
+    emacsclient -c -a '' --eval '(dired nil)'
+
+# screenshot
+Print
+	flameshot gui
+
+super + Print
+	flameshot full -c
+#+END_SRC
+* dunst
+#+begin_src conf :tangle ./dunst/dunstrc :mkdirp yes
+[global]
+    monitor = 0
+    follow = mouse
+    width = 350
+    offset = 10x50
+    progress_bar = true
+    progress_bar_height = 10
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 400
+    indicate_hidden = yes
+    shrink = no
+    separator_height = 2
+    padding = 8
+    horizontal_padding = 8
+    text_icon_padding = 0
+    frame_color = "#bbc2cf"
+    separator_color = frame
+    sort = yes
+    idle_threshold = 120
+    font = JetBrains Mono Nerd Font Medium 10
+    line_height = 0
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    word_wrap = yes
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+    icon_position = left
+    min_icon_size = 0
+    max_icon_size = 32
+    icon_path = /usr/share/icons/Adwaita
+    sticky_history = yes
+    history_length = 20
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    ignore_dbusclose = false
+    force_xwayland = false
+    force_xinerama = false
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[play_sound]
+    summary = "*"
+    script = /home/hann0t/.config/dunst/soundAlert.sh
+
+[urgency_low]
+    background = "#282c34"
+    foreground = "#A0A8CD"
+    timeout = 10
+
+[urgency_normal]
+    background = "#282c34"
+    foreground = "#A0A8CD"
+    timeout = 10
+
+[urgency_critical]
+    background = "#282c34"
+    foreground = "#E56160"
+    timeout = 30
+
+#+end_src
+* fish
+#+BEGIN_SRC shell :tangle ~/.config/fish/config.fish :mkdirp yes
+alias ls="exa -al --color=always --group-directories-first"
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+
+# remove the greeting message
+set -U fish_greeting
+
+# info in the terminal
+pfetch
+
+# export MPD_HOST="127.0.0.1"
+# export MPD_PORT="6601"
+
+# PATH
+
+# startship
+starship init fish | source
+#+END_SRC
+* polybar
+** theme config
+#+begin_src conf :tangle ./polybar/config :mkdirp yes
+[colors]
+;background = ${xrdb:color0:#282c34}
+background = #282c34
+background-alt = #282c34
+;foreground = ${xrdb:color7:#4ca6e3}
+foreground = #4ca6e3
+foreground-alt = #bbc2cf
+primary = #bbc2cf
+secondary = #bbc2cf
+alert = #e56160
+
+[bar/main]
+width = 100%
+height = 27
+radius = 0
+fixed-center = false
+override-redirect = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+; line-size = 3
+; line-color = #f00
+
+border-size = 4
+border-color = #ff282c34
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = JetBrains Mono:pixelsize=10;1
+font-1 = JetBrains Mono:pixelsize=10;1
+font-2 = JetBrains Mono Nerd Font:pixelsize=10;1
+
+modules-left = bspwm xwindow
+modules-center =
+modules-right = pulseaudio filesystem memory cpu date powermenu
+
+tray-position = right
+tray-detached = false
+tray-padding = 0
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:40:...%
+format-foreground = #bbc2cf
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = %index%
+label-focused-background = ${colors.foreground}
+label-focused-foreground = ${colors.background}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 1
+
+label-occupied = %index%
+label-occupied-padding = 1
+
+label-urgent = %index%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 1
+;
+; Separator in between workspaces
+; label-separator = |
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+format-mounted = <label-mounted>
+format-mounted-prefix = " "
+format-mounted-prefix-foreground = ${colors.foreground-alt}
+format-mounted-foreground = ${colors.foreground-alt}
+label-mounted = %free%/%total%
+
+;label-unmounted = %mountpoint%: not mounted
+;label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-foreground = ${colors.foreground-alt}
+label = %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "  "
+format-prefix-foreground = ${colors.foreground-alt}
+format-foreground = ${colors.foreground-alt}
+label = %percentage_used%%
+
+[module/date]
+type = internal/date
+interval = 60
+date = %a %d %b
+time = %l:%M %p
+label =  %date%   %time%
+format-padding = 1
+format-foreground = ${colors.foreground-alt}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume> <bar-volume>
+label-volume = vol %percentage%%
+label-volume-foreground = ${colors.foreground-alt}
+
+label-muted = "  Muted "
+label-muted-foreground = ${colors.foreground-alt}
+
+bar-volume-width = 7
+bar-volume-foreground-0 = ${colors.foreground}
+bar-volume-foreground-1 = ${colors.foreground}
+bar-volume-foreground-2 = ${colors.foreground}
+bar-volume-foreground-3 = ${colors.foreground}
+bar-volume-foreground-4 = ${colors.foreground}
+bar-volume-foreground-5 = ${colors.foreground}
+bar-volume-foreground-6 = ${colors.foreground}
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 1
+bar-volume-fill = ─
+bar-volume-fill-font = 1
+bar-volume-empty = ─
+bar-volume-empty-font = 1
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = "  "
+label-open-foreground = ${colors.secondary}
+label-close = cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+; compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+; pseudo-transparency = false
+
+[global/wm]
+margin-top = 4
+margin-bottom = 5
+
+; vim:ft=dosini
+#+end_src
+** launch config
+#+begin_src shell :tangle ./polybar/launch.sh :mkdirp yes
+#!/bin/sh
+
+# Terminate already running bar instances
+killall -q polybar
+
+# Launch bar1 and bar2
+polybar main 2>&1 | tee -a /tmp/polybar.log & disown
+# MONITORS=$(xrandr --query | grep " connected" | cut -d" " -f1)
+
+# MONITORS=$MONITORS polybar main;
+
+echo "Bars launched..."
+
+#+end_src
+
+* mpd
+#+begin_src conf :tangle ./.mpd/mpd.conf :mkdirp yes
+music_directory "/media/hann0t/Music"
+playlist_directory "/media/hann0t/Music/playlists"
+db_file "/home/hann0t/.mpd/mpd.db"
+log_file "/home/hann0t/.mpd/mpd.log"
+pid_file "/home/hann0t/.mpd/mpd.pid"
+state_file "/home/hann0t/.mpd/mpdstate"
+# group "audio"
+
+# audio_output {
+# 	type	"alsa"
+	# name	"My ALSA Device"
+# }
+audio_output {
+	type "pulse"
+	name "My Pulse Output"
+}
+
+audio_output {
+	type "fifo"
+	name "fifo_visualizer"
+	path "/tmp/mpd.fifo"
+	format "44100:16:2"
+}
+
+bind_to_address "127.0.0.1"
+port "6601"
+
+#+end_src
+* ncmpcpp
+** ncmpcpp_notify
+#+begin_src shell :tangle ./.ncmpcpp/ncmpcpp_notify.sh :mkdirp yes
+#!/bin/bash
+
+# Send notification with album art when ncmpcpp plays a new song
+# execute_on_song_change must be set in ncmpcpp config
+
+readonly MUSIC_DIR="/media/hann0t/Music"
+readonly SONG_PATH="$(mpc --format '%file%' current)"
+readonly SONG_DIR="$(dirname "${SONG_PATH}")"
+readonly ALBUM_ART_PATH="${MUSIC_DIR}/${SONG_DIR}/cover.ico"
+
+notify-send -i "${ALBUM_ART_PATH}" "♫ Now Playing ♫" "$(mpc --format '%title% - %artist%' current)"
+#+end_src
+** config
+#+begin_src conf :tangle ./.ncmpcpp/config :mkdir yes
+#######################################################################
+##   This is configuration file. Copy it to $HOME/.ncmpcpp/config    ##
+##  or $XDG_CONFIG_HOME/ncmpcpp/config and set up your preferences   ##
+#######################################################################
+
+### directories ###
+
+ncmpcpp_directory = ~/.ncmpcpp
+mpd_music_dir = "/media/hann0t/hardDrive/Music/"
+
+mpd_host = "127.0.0.1"
+mpd_port = "6601"
+
+### Directory for storing downloaded lyrics ###
+
+# lyrics_directory = ~/.lyrics
+
+
+################################
+
+% egrep -v '^#' .ncmpcpp/config
+
+visualizer_in_stereo = "no"
+# visualizer_fifo_path = "~/.config/mpd/mpd.fifo"
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_sync_interval = "10"
+visualizer_type = "spectrum"
+# visualizer_look = "▮"
+# visualizer_look = "º|"
+visualizer_look = "▀▋"
+# visualizer_look = "●▮"
+visualizer_color = "blue, cyan, green, yellow, magenta, red, black"
+
+message_delay_time = "2"
+
+playlist_shorten_total_times = "yes"
+playlist_display_mode = "classic"
+playlist_editor_display_mode = "columns"
+
+browser_display_mode = "columns"
+
+search_engine_display_mode = "columns"
+
+autocenter_mode = "yes"
+
+mouse_support = "yes"
+
+centered_cursor = "yes"
+
+user_interface = "classic"
+
+follow_now_playing_lyrics = "yes"
+
+locked_screen_width_part = "60"
+
+display_bitrate = "no"
+
+external_editor = "vim"
+
+progressbar_elapsed_color = "white"
+progressbar_color = "black"
+
+#progressbar_look = "▃▃▃"
+# progressbar_look = "──"
+progressbar_look = "─╼─"
+#progressbar_look = "==─"
+
+header_visibility = "no"
+statusbar_visibility = "yes"
+titles_visibility = "no"
+
+statusbar_color = "white"
+
+enable_window_title = "yes"
+
+now_playing_prefix = "$b$1"
+now_playing_suffix = "$8$/b"
+
+#now_playing_prefix = "$u$2"
+#now_playing_suffix = "$2$/u$2"
+
+song_columns_list_format = "(6)[]{} (23)[cyan]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
+
+# song_list_format = " $7%l  $2%t $R$5%a "
+# song_list_format = "$1> $2%a$8 - $3%b - $8%t $R $3%l  "
+song_list_format = "$1> $5%a$8 - $8%t $R $2%l  "
+
+song_status_format = "$b$7♫ $2%a $8- $3%b $8- $8%t "
+song_window_title_format = " {%a} - {%t}"
+
+
+###################
+##  song format  ##
+##
+## For a song format you can use:
+##
+## %l - length
+## %f - filename
+## %D - directory
+## %a - artist
+## %A - album artist
+## %t - title
+## %b - album
+## %y - date
+## %n - track number (01/12 -> 01)
+## %N - full track info (01/12 -> 01/12)
+## %g - genre
+## %c - composer
+## %p - performer
+## %d - disc
+## %C - comment
+## %P - priority
+## $R - begin right alignment
+##
+##
+## Colors:
+##
+## - 0 - default window color (discards all other colors)
+## - 1 - black
+## - 2 - red
+## - 3 - green
+## - 4 - yellow
+## - 5 - blue
+## - 6 - magenta
+## - 7 - cyan
+## - 8 - white
+## - 9 - end of current color
+## - b - bold text
+## - u - underline text
+## - r - reverse colors
+## - a - use alternative character set
+##
+##
+###################################################################
+##  Custom command that will be executed each time song changes  ##
+##
+#execute_on_song_change =
+#
+##
+###########################################################################
+##  Custom command that will be executed each time player state changes  ##
+##    The environment variable MPD_PLAYER_STATE is set to the current    ##
+##     state (either unknown, play, pause, or stop) for its duration     ##
+##
+#
+#execute_on_player_state_change = notify-send "$(mpc current)"
+
+startup_slave_screen=visualizer
+
+# execute_on_song_change="notify-send "Now playing" "$(ncmpcpp -q --current-song="{%a - }{%t}|{%f}")""
+execute_on_song_change = ~/.ncmpcpp/ncmpcpp_notify.sh
+
+#+end_src
