@@ -10,6 +10,7 @@
 - [[#alacritty][alacritty]]
 - [[#bspwm][bspwm]]
 - [[#sxhkd][sxhkd]]
+- [[#concky][concky]]
 - [[#dunst][dunst]]
 - [[#fish][fish]]
 - [[#polybar][polybar]]
@@ -766,20 +767,31 @@ debug:
 
 # STARTUP
 #pgrep -x sxhkd > /dev/null || sxhkd &
+$HOME/.config/polybar/launch.sh
 sxhkd &
 nm-applet &
-$HOME/.config/polybar/launch.sh
-feh --bg-fill ~/wallpapers/wallpaper-chainsawman-03.jpg
+pamac-tray &
+conky -c $HOME/.config/bspwm/system-overview &
+run variety &
+run xfce4-power-manager &
+numlockx on &
+blueberry-tray &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+/usr/lib/xfce4/notifyd/xfce4-notifyd &
+run volumeicon &
+feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
 emacs --daemon &
 redshift -P -O 2500
+
 # monitor
-xrandr --output DP-1 --mode 1920x1080 --rate 119.98
+xrandr --output DisplayPort-0 --mode 1920x1080 --rate 119.98
 
 # virtual Desktops
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
 bspc config border_width         2
 bspc config window_gap          10
+bspc config top_padding         35
 
 #BSPWM coloring
 bspc config normal_border_color "#bbc2cf"
@@ -961,6 +973,161 @@ Print
 super + Print
 	flameshot full -c
 #+END_SRC
+* concky
+#+BEGIN_SRC conf :tangle ~/.config/bspwm/system-overview :mkdirp yes :tangle-mode (identity #o755)
+--[[
+#=====================================================================================
+#                               ArcoLinuxD
+#
+# Author  : Erik Dubois at http://www.erikdubois.be
+# License : Distributed under the terms of GNU GPL version 2 or later
+# Documentation : http://erikdubois.be/category/linux/aureola/
+#======================================================================================
+
+
+]]
+
+conky.config = {
+
+	--Various settings
+
+	background = true, 							-- forked to background
+	cpu_avg_samples = 2,						-- The number of samples to average for CPU monitoring.
+	diskio_avg_samples = 10,					-- The number of samples to average for disk I/O monitoring.
+	double_buffer = true,						-- Use the Xdbe extension? (eliminates flicker)
+	if_up_strictness = 'address',				-- how strict if testing interface is up - up, link or address
+	net_avg_samples = 2,						-- The number of samples to average for net data
+	no_buffers = true,							-- Subtract (file system) buffers from used memory?
+	temperature_unit = 'celsius',				-- fahrenheit or celsius
+	text_buffer_size = 2048,					-- size of buffer for display of content of large variables - default 256
+	update_interval = 1,						-- update interval
+	imlib_cache_size = 0,                       -- disable image cache to get a new spotify cover per song
+
+
+	--Placement
+
+	alignment = 'middle_right',					-- top-left,top-middle,top-right,bottom-left,bottom-middle,bottom-right,
+												-- middle-left,middle-middle,middle-right,none
+	--Arch Duoscreen
+	--gap_x = -1910,
+	gap_x = 10,									-- pixels between right or left border
+	gap_y = 10,									-- pixels between bottom or left border
+	minimum_height = 200,						-- minimum height of window
+	minimum_width = 280,						-- minimum height of window
+	maximum_width = 280,						-- maximum height of window
+
+	--Graphical
+
+	border_inner_margin = 5, 					-- margin between border and text
+	border_outer_margin = 5, 					-- margin between border and edge of window
+	border_width = 0, 							-- border width in pixels
+	default_bar_width = 280,					-- default is 0 - full width
+	default_bar_height = 10,					-- default is 6
+	default_gauge_height = 25,					-- default is 25
+	default_gauge_width =40,					-- default is 40
+	default_graph_height = 40,					-- default is 25
+	default_graph_width = 153,					-- default is 0 - full width
+	default_shade_color = '#000000',			-- default shading colour
+	default_outline_color = '#000000',			-- default outline colour
+	draw_borders = false,						-- draw borders around text
+	draw_graph_borders = true,					-- draw borders around graphs
+	draw_shades = false,						-- draw shades
+	draw_outline = false,						-- draw outline
+	stippled_borders = 0,						-- dashing the border
+
+	--Textual
+
+	extra_newline = false,						-- extra newline at the end - for asesome's wiboxes
+	format_human_readable = true,				-- KiB, MiB rather then number of bytes
+	font = 'Noto Mono:size=11:regular',  			-- font for complete conky unless in code defined
+	max_text_width = 0,							-- 0 will make sure line does not get broken if width too smal
+	max_user_text = 16384,						-- max text in conky default 16384
+	override_utf8_locale = true,				-- force UTF8 requires xft
+	short_units = true,							-- shorten units from KiB to k
+	top_name_width = 21,						-- width for $top name value default 15
+	top_name_verbose = false,					-- If true, top name shows the full command line of  each  process - Default value is false.
+	uppercase = false,							-- uppercase or not
+	use_spacer = 'none',						-- adds spaces around certain objects to align - default none
+	use_xft = true,								-- xft font - anti-aliased font
+	xftalpha = 1,								-- alpha of the xft font - between 0-1
+
+	--Windows
+
+	own_window = true,							-- create your own window to draw
+	own_window_argb_value = 150,				    -- real transparency - composite manager required 0-255
+	own_window_argb_visual = true,				-- use ARGB - composite manager required
+	own_window_class = 'Conky',					-- manually set the WM_CLASS name for use with xprop
+	own_window_colour = '#000000',				-- set colour if own_window_transparent no
+	own_window_hints = 'undecorated,below,above,sticky,skip_taskbar,skip_pager',  -- if own_window true - just hints - own_window_type sets it
+	own_window_transparent = false,				-- if own_window_argb_visual is true sets background opacity 0%
+	own_window_title = 'system_conky',			-- set the name manually  - default conky "hostname"
+	own_window_type = 'desktop',				-- if own_window true options are: normal/override/dock/desktop/panel
+
+
+	--Colours
+
+	default_color = '#ff0000',  				-- default color and border color
+	color1 = '#FFFFFF',
+	color2 = '#929292',
+	color3 = '#cccccc',
+	color4 = '#BDBDBD',
+	color5 = '#CCCCCC',
+	color6 = '#aa0000',
+
+	--Signal Colours
+	color7 = '#1F7411',  						--green
+	color8 = '#FFA726',  						--orange
+	color9 = '#F1544B',  						--firebrick
+
+
+	--Lua
+
+
+};
+conky.text = [[
+${color1}${alignc}S Y S T E M    I N F O${color}
+${color1}${hr}${color}
+${color1}Host:${alignr}${color2}${nodename}${color}
+#${color1}Kernel:${color2}${alignr}$kernel${color}
+#${color1}Uptime:${color2}${alignr}${uptime}${color}
+#${color1}UTC:${color2}${alignr}${utime %H:%M}${color}
+
+${color1}${goto 60}Used${alignr}Size${color}
+${color1}Root${goto 60}${color2}${fs_used /}${alignr}${fs_size /}${color}
+#${color1}Home${goto 60}${color2}${fs_used /home}${alignr}${fs_size /home}${color}
+
+${color1}${goto 60}Mem${alignr}Max${color}
+${color1}RAM${goto 60}${color2}${mem}${alignr}${memmax}${color}
+${color1}Swap${goto 60}${color2}${swap}${alignr}${swapmax}${color}
+
+${color1}CPU:${goto 60}Used${alignr}GHz${color}
+${color1}Avg${goto 60}${color2}${if_match ${cpu cpu0}<50}  ${cpu cpu0}\
+${else}${if_match ${cpu cpu0}<=100}${color9} ${cpu cpu0}\
+${else}${cpu cpu0}${endif}${endif}%${alignr}${freq_g}${color}
+
+${color1}${alignc}S H O R T C U T    K E Y S${color}
+${color1}${hr}${color}
+${color1}[S]+[Shift]+D${alignr}${color2}Main Menu${color}
+${color1}[Alt]+F2${alignr}${color2}Alt Menu${color}
+${color1}[Alt]+F3${alignr}${color2}Alt Menu${color}
+${color1}${hr}${color}
+${color1}[S]+Enter${alignr}${color2}Terminal${color}
+${color1}[S]+[Shift]+Enter${alignr}${color2}File Manager${color}
+${color1}[Ctrl]+[Alt]+V${alignr}${color2}Vivaldi${color}
+${color1}[S]+F2${alignr}${color2}Editor${color}
+${color1}[S]+F6${alignr}${color2}Media Player${color}
+${color1}[S]+[Space]${alignr}${color2}Change Layout${color}
+${color1}[Ctrl]+[Shift]+Esc${alignr}${color2}Task Manager${color}
+${color1}[Ctrl]+[Alt]+U${alignr}${color2}Volume Control${color}
+${color1}[PrtSc]${alignr}${color2}Screenshot${color}
+${color1}[S]+[Shift]+R${alignr}${color2}Restart Bspwm${color}
+${color1}${hr}${color}
+${color1}[S]+[Shift]+Q${alignr}${color2}Stop application${color}
+${color1}[S]+x${alignr}${color2}Exit${color}
+${color1}${hr}${color}
+${color1}${execi 6000 lsb_release -d | grep 'Descr'|awk {'print $2 " " $3" " $4" " $5'}}${alignr}${execi 6000 lsb_release -a | grep 'Release'|awk {'print $2""$3""$4""$5'}}${color}
+]];
+#+END_SRC
 * dunst
 #+begin_src conf :tangle ~/.config/dunst/dunstrc :mkdirp yes
 [global]
@@ -1060,210 +1227,1239 @@ starship init fish | source
 * polybar
 ** theme config
 #+begin_src conf :tangle ~/.config/polybar/config :mkdirp yes
-[colors]
-;background = ${xrdb:color0:#282c34}
-background = #282c34
-background-alt = #282c34
-;foreground = ${xrdb:color7:#4ca6e3}
-foreground = #4ca6e3
-foreground-alt = #bbc2cf
-primary = #bbc2cf
-secondary = #bbc2cf
-alert = #e56160
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;	Themes : https://github.com/jaagr/dots/tree/master/.local/etc/themer/themes
+;   https://github.com/jaagr/polybar/wiki/
+;   https://github.com/jaagr/polybar/wiki/Configuration
+;   https://github.com/jaagr/polybar/wiki/Formatting
+;
+;=====================================================
 
-[bar/main]
+[global/wm]
+;https://github.com/jaagr/polybar/wiki/Configuration#global-wm-settings
+margin-top = 0
+margin-bottom = 0
+
+[settings]
+;https://github.com/jaagr/polybar/wiki/Configuration#application-settings
+throttle-output = 5
+throttle-output-for = 10
+screenchange-reload = true
+compositing-background = over
+compositing-foreground = over
+compositing-overline = over
+compositing-underline = over
+compositing-border = over
+
+; Define fallback values used by all module formats
+format-foreground = #FF0000
+format-background = #00FF00
+format-underline =
+format-overline =
+format-spacing =
+format-padding =
+format-margin =
+format-offset =
+
+[colors]
+; Nord theme ============
+background = #2F343F
+foreground = #f3f4f5
+occupied = #cccccc
+active = #5e81ac
+alert = #d08770
+volume-min = #a3be8c
+volume-med = #ebcb8b
+volume-max = #bf616a
+; =======================
+
+; Gotham theme ==========
+; background = #0a0f14
+; foreground = #99d1ce
+; alert = #d26937
+; volume-min = #2aa889
+; volume-med = #edb443
+; volume-max = #c23127
+; =======================
+
+; INTRCPTR theme ============
+;background = ${xrdb:color0:#222}
+;background = #aa000000
+;background-alt = #444
+;foreground = ${xrdb:color7:#222}
+;foreground = #fff
+;foreground-alt = #555
+;primary = #ffb52a
+;secondary = #e60053
+;alert = #bd2c40
+
+
+################################################################################
+################################################################################
+############                  MAINBAR-BSPWM                         ############
+################################################################################
+################################################################################
+
+[bar/mainbar-bspwm]
+monitor = ${env:MONITOR}
+;monitor-fallback = HDMI1
 width = 100%
-height = 27
-radius = 0
-fixed-center = false
-override-redirect = false
+height = 30
+;offset-x = 1%
+;offset-y = 1%
+radius = 0.0
+fixed-center = true
+bottom = false
+separator = |
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-; line-size = 3
-; line-color = #f00
+line-size = 2
+line-color = #f00
 
-border-size = 4
-border-color = #ff282c34
+wm-restack = bspwm
+override-redirect = true
+
+; Enable support for inter-process messaging
+; See the Messaging wiki page for more details.
+enable-ipc = true
+
+border-size = 0
+;border-left-size = 0
+;border-right-size = 25
+border-top-size = 10
+;border-bottom-size = 25
+border-color = #00000000
 
 padding-left = 0
-padding-right = 0
+padding-right = 1
 
-module-margin-left = 1
-module-margin-right = 1
+module-margin-left = 3
+module-margin-right = 3
 
-font-0 = JetBrains Mono:pixelsize=10;1
-font-1 = JetBrains Mono:pixelsize=10;1
-font-2 = JetBrains Mono Nerd Font:pixelsize=10;1
+;https://github.com/jaagr/polybar/wiki/Fonts
+font-0 = "Noto Sans:size=10;0"
+font-1 = "FontAwesome:size=13;0"
+font-2 = "Noto Sans:size=10;0"
+font-3 = "Noto Sans Mono:size=10;0"
 
 modules-left = bspwm xwindow
-modules-center =
-modules-right = pulseaudio filesystem memory cpu date powermenu
+modules-center = kernel
+modules-right = pavolume memory2 cpu2 date
 
-tray-position = right
 tray-detached = false
-tray-padding = 3
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 2
+tray-maxsize = 20
+tray-scale = 1.0
+tray-position = right
+tray-background = ${colors.background}
 
-cursor-click = pointer
-cursor-scroll = ns-resize
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
 
 
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:40:...%
-format-foreground = #bbc2cf
+################################################################################
+################################################################################
+############                  MAINBAR-BSPWM-EXTRA                   ############
+################################################################################
+################################################################################
+
+[bar/mainbar-bspwm-extra]
+monitor = ${env:MONITOR}
+;monitor-fallback = HDMI1
+width = 100%
+height = 30
+;offset-x = 1%
+;offset-y = 1%
+radius = 0.0
+fixed-center = true
+bottom = true
+separator = |
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = #f00
+
+wm-restack = bspwm
+override-redirect = true
+
+; Enable support for inter-process messaging
+; See the Messaging wiki page for more details.
+enable-ipc = true
+
+border-size = 0
+;border-left-size = 0
+;border-right-size = 25
+;border-top-size = 0
+;border-bottom-size = 25
+border-color = #00000000
+
+padding-left = 0
+padding-right = 1
+
+module-margin-left = 3
+module-margin-right = 3
+
+;https://github.com/jaagr/polybar/wiki/Fonts
+font-0 = "Noto Sans:size=10;0"
+font-1 = "FontAwesome:size=13;0"
+font-2 = "Noto Sans:size=10;0"
+font-3 = "Noto Sans Mono:size=10;0"
+
+modules-left = load-average
+modules-center = networkspeeddown networkspeedup
+modules-right = filesystem
+
+;tray-detached = false
+;tray-offset-x = 0
+;tray-offset-y = 0
+;tray-padding = 2
+;tray-maxsize = 20
+;tray-scale = 1.0
+;tray-position = right
+;tray-background = ${colors.background}
+
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+
+################################################################################
+################################################################################
+############                       MODULE BSPWM                     ############
+################################################################################
+################################################################################
 
 [module/bspwm]
 type = internal/bspwm
 
-label-focused = %index%
-label-focused-background = ${colors.foreground}
-label-focused-foreground = ${colors.background}
-label-focused-underline= ${colors.primary}
-label-focused-padding = 1
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+pin-workspaces = true
 
-label-occupied = %index%
-label-occupied-padding = 1
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
+ws-icon-default = " "
 
-label-urgent = %index%!
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 1
 
-label-empty = %index%
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 1
-;
+format = <label-state> <label-mode>
+
+label-focused = %icon%
+label-focused-background = ${colors.background}
+label-focused-underline= #6790eb
+label-focused-padding = 4
+label-focused-foreground = #6790EB
+
+label-occupied = %icon%
+label-occupied-padding = 2
+label-occupied-background = ${colors.background}
+label-occupied-foreground = #6790EB
+
+label-urgent = %icon%
+label-urgent-padding = 2
+
+label-empty = %icon%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+label-empty-background = ${colors.background}
+label-monocle = "  "
+label-monocle-foreground = ${colors.foreground}
+label-tiled = "  "
+label-tiled-foreground = ${colors.foreground}
+label-fullscreen = "  "
+label-fullscreen-foreground = ${colors.foreground}
+label-floating = "  "
+label-floating-foreground = ${colors.foreground}
+label-pseudotiled = "  "
+label-pseudotiled-foreground = ${colors.foreground}
+label-locked = "  "
+label-locked-foreground = ${colors.foreground}
+label-sticky = "  "
+label-sticky-foreground = ${colors.foreground}
+label-private =  "     "
+label-private-foreground = ${colors.foreground}
+
 ; Separator in between workspaces
-; label-separator = |
+;label-separator = |
+;label-separator-padding = 10
+;label-separator-foreground = #ffb52a
 
-[module/filesystem]
-type = internal/fs
-interval = 25
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
 
-mount-0 = /
 
-format-mounted = <label-mounted>
-format-mounted-prefix = " "
-format-mounted-prefix-foreground = ${colors.foreground-alt}
-format-mounted-foreground = ${colors.foreground-alt}
-label-mounted = %free%/%total%
+################################################################################
+###############################################################################
+############                       MODULES A-Z                      ############
+################################################################################
+################################################################################
 
-;label-unmounted = %mountpoint%: not mounted
-;label-unmounted-foreground = ${colors.foreground-alt}
+[module/arch-updates]
+type = custom/script
+exec = ~/.config/polybar/scripts/check-arch-updates.sh
+interval = 1000
+label = Arch: %output%
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #FFBB00
+format-underline = #FFBB00
 
-[module/cpu]
+[module/aur-updates]
+type = custom/script
+exec = ~/.config/polybar/scripts/check-aur-updates.sh
+interval = 1000
+label = Aur: %output%
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #FFBB00
+format-underline = #FFBB00
+
+################################################################################
+
+[module/cpu1]
+;https://github.com/jaagr/polybar/wiki/Module:-cpu
 type = internal/cpu
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-foreground = ${colors.foreground-alt}
-label = %percentage:2%%
+; Seconds to sleep between updates
+; Default: 1
+interval = 1
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+;   
+format-prefix = " "
+format-prefix-foreground = #cd1f3f
+format-underline = #cd1f3f
 
-[module/memory]
-type = internal/memory
-interval = 2
-format-prefix = "  "
-format-prefix-foreground = ${colors.foreground-alt}
-format-foreground = ${colors.foreground-alt}
-label = %percentage_used%%
+; Available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+format = <label> <ramp-coreload>
+
+format-padding = 2
+
+; Available tokens:
+;   %percentage% (default) - total cpu load
+;   %percentage-cores% - load percentage for each core
+;   %percentage-core[1-9]% - load percentage for specific core
+label-font = 3
+label = Cpu %percentage:3%%
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 3
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 3
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 3
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 3
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 3
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 3
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 3
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 3
+ramp-coreload-7-foreground = #ff5555
+
+################################################################################
+
+[module/cpu2]
+;https://github.com/jaagr/polybar/wiki/Module:-cpu
+type = internal/cpu
+; Seconds to sleep between updates
+; Default: 1
+interval = 1
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #cd1f3f
+format-underline = #cd1f3f
+
+label-font = 3
+
+; Available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+format = <label>
+
+format-padding = 2
+
+; Available tokens:
+;   %percentage% (default) - total cpu load
+;   %percentage-cores% - load percentage for each core
+;   %percentage-core[1-9]% - load percentage for specific core
+label = Cpu %percentage:3%%
+
+################################################################################
 
 [module/date]
+;https://github.com/jaagr/polybar/wiki/Module:-date
 type = internal/date
-interval = 60
-date = %a %d %b
-time = %l:%M %p
-label =  %date%   %time%
+; Seconds to sleep between updates
+interval = 5
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = " %Y-%m-%d%"
+date-alt = " %d-%m-%Y"
+time = %H:%M
+time-alt = %H:%M
+format-prefix = " "
+format-prefix-foreground = #c1941a
+format-underline = #c1941a
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+label = %date% %time%
+
+#################################################################
+
+[module/discord]
+type = custom/script
+exec = echo " Discord "
+;exec = echo " "
+interval = 1
+tail = true
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix-foreground = #738adb
+format-underline = #738adb
+click-left = discord &
+click-right = killall Discord && killall Discord
+format-prefix = ""
+
+#################################################################
+
+[module/ewmh]
+type = internal/xworkspaces
+
+pin-workspaces = false
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;
+#icon-5 = 6;
+format = <label-state>
+label-monitor = %name%
+
+label-active = %name%
+label-active-foreground = ${colors.foreground}
+label-active-background = ${colors.background}
+label-active-underline= #6790eb
+label-active-padding = 2
+
+label-occupied = %name%
+label-occupied-background = ${colors.background}
+label-occupied-padding = 2
+
+label-urgent = %name%
+label-urgent-foreground = ${colors.foreground}
+label-urgent-background = ${colors.alert}
+label-urgent-underline = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %name%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+
+#################################################################
+
+[module/ewmh-noscroll]
+type = internal/xworkspaces
+
+pin-workspaces = false
+enable-click = true
+enable-scroll = false
+reverse-scroll = false
+
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;
+#icon-5 = 6;
+format = <label-state>
+label-monitor = %name%
+
+label-active = %name%
+label-active-foreground = ${colors.foreground}
+label-active-background = ${colors.background}
+label-active-underline= #6790eb
+label-active-padding = 2
+
+label-occupied = %name%
+label-occupied-background = ${colors.background}
+label-occupied-padding = 2
+
+label-urgent = %name%
+label-urgent-foreground = ${colors.foreground}
+label-urgent-background = ${colors.alert}
+label-urgent-underline = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %name%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+################################################################################
+
+[module/filesystem]
+;https://github.com/jaagr/polybar/wiki/Module:-filesystem
+type = internal/fs
+
+; Mountpoints to display
+mount-0 = /
+;mount-1 = /home
+;mount-2 = /var
+
+; Seconds to sleep between updates
+; Default: 30
+interval = 30
+
+; Display fixed precision values
+; Default: false
+fixed-values = false
+
+; Spacing between entries
+; Default: 2
+spacing = 4
+
+; Available tags:
+;   <label-mounted> (default)
+;   <bar-free>
+;   <bar-used>
+;   <ramp-capacity>
+format-mounted = <label-mounted>
+format-mounted-foreground = ${colors.foreground}
+format-mounted-background = ${colors.background}
+format-mounted-underline = #fe0000
+
+
+; Available tokens:
+;   %mountpoint%
+;   %type%
+;   %fsname%
+;   %percentage_free%
+;   %percentage_used%
+;   %total%
+;   %free%
+;   %used%
+; Default: %mountpoint% %percentage_free%%
+label-mounted = %mountpoint% : %used% used of %total%
+
+; Available tokens:
+;   %mountpoint%
+; Default: %mountpoint% is not mounted
+label-unmounted = %mountpoint% not mounted
+format-unmounted-foreground = ${colors.foreground}
+format-unmounted-background = ${colors.background}
+;format-unmounted-underline = ${colors.alert}
+
+################################################################################
+
+[module/kernel]
+type = custom/script
+exec = uname -r
+tail = false
+interval = 1024
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #0084FF
+format-underline = #0084FF
+
+################################################################################
+
+[module/jgmenu]
+type = custom/script
+interval = 120
+exec = echo "ArcoLinux"
+click-left = "jgmenu_run >/dev/null 2>&1 &"
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+################################################################################
+
+[module/load-average]
+type = custom/script
+exec = uptime | grep -ohe 'load average[s:][: ].*' | awk '{ print $3" "$4" "$5"," }' | sed 's/,//g'
+interval = 100
+
+;HOW TO SET IT MINIMAL 10 CHARACTERS - HIDDEN BEHIND SYSTEM ICONS
+;label = %output%
+label = %output:10%
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #62FF00
+format-underline = #62FF00
+
+################################################################################
+
+[module/memory1]
+;https://github.com/jaagr/polybar/wiki/Module:-memory
+type = internal/memory
+interval = 1
+; Available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+label = %percentage_used%%
+bar-used-indicator =
+bar-used-width = 10
+bar-used-foreground-0 = #3384d0
+bar-used-fill = 
+bar-used-empty = 
+bar-used-empty-foreground = #ffffff
+
+format = <label> <bar-used>
+format-prefix = "  "
+format-prefix-foreground = #3384d0
+format-underline = #3384d0
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+################################################################################
+
+[module/memory2]
+;https://github.com/jaagr/polybar/wiki/Module:-memory
+type = internal/memory
+interval = 1
+; Available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+label = %percentage_used%%
+
+format = Mem <label>
+format-prefix = "  "
+format-prefix-foreground = #3384d0
+format-underline = #3384d0
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+################################################################################
+
+[module/memory3]
+;https://github.com/jaagr/polybar/wiki/Module:-memory
+type = internal/memory
+interval = 1
+; Available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+label = %gb_used%/%gb_free%
+
+format = Mem <label>
+format-prefix = "  "
+format-prefix-foreground = #3384d0
+format-underline = #3384d0
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+
+################################################################################
+
+[module/mpd]
+;https://github.com/jaagr/polybar/wiki/Module:-mpd
+type = internal/mpd
+;format-online =  "<label-song>   <icon-prev>  <icon-stop>  <toggle>  <icon-next>"
+format-online =  "<label-song>  <bar-progress>"
+;format-online =  "<label-song>  <bar-progress> <icon-prev>  <icon-stop>  <toggle>  <icon-next>"
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+label-song-maxlen = 40
+label-song-ellipsis = true
+bar-progress-width = 10
+bar-progress-indicator = 
+bar-progress-fill = 
+bar-progress-empty = 
+bar-progress-fill-foreground = #ff0
+bar-progress-fill-background = ${colors.background}
+bar-progress-indicator-foreground = ${colors.foreground}
+format-online-foreground = ${colors.foreground}
+format-online-background = ${colors.background}
+################################################################################
+
+[module/networkspeedup]
+;https://github.com/jaagr/polybar/wiki/Module:-network
+type = internal/network
+;interface = wlp3s0
+;interface = enp14s0
+interface = enp0s31f6
+;interface = enp4s0
+label-connected = "%upspeed:7%"
+format-connected = <label-connected>
+format-connected-prefix = ""
+format-connected-prefix-foreground = #FE522C
+format-connected-foreground = ${colors.foreground}
+format-connected-background = ${colors.background}
+;format-connected-underline = #62FF00
+
+################################################################################
+
+[module/networkspeeddown]
+;https://github.com/jaagr/polybar/wiki/Module:-network
+type = internal/network
+;interface = wlp3s0
+;interface = enp14s0
+interface = enp0s31f6
+;interface = enp4s0
+label-connected = "%downspeed:7%"
+format-connected = <label-connected>
+format-connected-prefix = ""
+format-connected-prefix-foreground = #3EC13F
+format-connected-foreground = ${colors.foreground}
+format-connected-background = ${colors.background}
+;format-connected-underline = #62FF00
+
+################################################################################
+
+[module/pacman-updates]
+type = custom/script
+;exec = pacman -Qu | wc -l
+exec = checkupdates | wc -l
+interval = 1000
+label = Repo: %output%
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #FFBB00
+format-underline = #FFBB00
+
+################################################################################
+
+[module/pamac-manager]
+type = custom/script
+exec = pamac checkupdates -q | wc -l
+interval = 1000
+label = Pamac : %output%
+tail = true
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix-foreground = #738adb
+format-underline = #738adb
+click-right = pamac-manager &
+click-left = pamac-manager &
+format-prefix = " "
+
+################################################################################
+
+[module/pavolume]
+type = custom/script
+tail = true
+label = %output%
+exec = ~/.config/polybar/scripts/pavolume.sh --listen
+click-right = exec pavucontrol
+click-left = ~/.config/polybar/scripts/pavolume.sh --togmute
+scroll-up = ~/.config/polybar/scripts/pavolume.sh --up
+scroll-down = ~/.config/polybar/scripts/pavolume.sh --down
+format-underline = #3EC13F
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+
+
+################################################################################
+
+[module/pub-ip]
+;https://linuxconfig.org/polybar-a-better-wm-panel-for-your-linux-system
+type = custom/script
+exec = ~/.config/polybar/scripts/pub-ip.sh
+interval = 100
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-underline = #FFBB00
+label = %output%
+format-prefix = "  "
+format-prefix-foreground = #FFBB00
+
+################################################################################
+
+[module/release]
+type = custom/script
+exec = (lsb_release -d | awk {'print $2'} ;echo " "; lsb_release -r | awk {'print $2'}) | tr -d '\n'
+interval = 6000
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #62FF00
+format-underline = #62FF00
+
+################################################################################
+
+[module/sep]
+; alternative separator
+type = custom/text
+content = 
+content-foreground = ${colors.foreground}
+content-background =  ${colors.background}
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+################################################################################
+
+[module/spotify1]
+;https://github.com/NicholasFeldman/dotfiles/blob/master/polybar/.config/polybar/spotify.sh
+type = custom/script
+exec = ~/.config/polybar/scripts/spotify1.sh
+interval = 1
+
+;format = <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-padding = 2
+format-underline = #0f0
+format-prefix = "  "
+format-prefix-foreground = #0f0
+label = %output:0:150%
+
+################################################################################
+
+[module/spotify2]
+;install zscroll
+;https://github.com/PrayagS/polybar-spotify
+type = custom/script
+tail = true
+format-prefix = "  "
+format = <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+exec = ~/.config/polybar/scripts/scroll_spotify_status.sh
+
+
+[module/spotify-prev]
+type = custom/script
+exec = echo ""
+format = <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+click-left = playerctl previous spotify
+click-right = spotify
+
+[module/spotify-play-pause]
+type = custom/ipc
+hook-0 = echo ""
+hook-1 = echo ""
+initial = 1
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+click-left = playerctl play-pause spotify
+click-right = spotify
+
+[module/spotify-next]
+type = custom/script
+exec = echo ""
+format = <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+click-left = playerctl next spotify
+click-right = spotify
+
+################################################################################
+
+[module/temperature1]
+;https://github.com/jaagr/polybar/wiki/Module:-temperature
+type = internal/temperature
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input
+
+warn-temperature = 70
+format = <ramp> <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-underline = #c72581
+format-warn = <ramp> <label-warn>
+format-warn-underline = #c7254f
+label = %temperature%
+label-warn =  %temperature%
+label-warn-foreground = #c7254f
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground =${colors.foreground}
+
+################################################################################
+
+[module/temperature2]
+type = custom/script
+exec = ~/.config/polybar/scripts/tempcores.sh
+interval = 2
 format-padding = 1
-format-foreground = ${colors.foreground-alt}
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-underline = #C1B93E
+format-prefix-foreground = #C1B93E
+label =  %output:0:150:%
 
-[module/pulseaudio]
-type = internal/pulseaudio
+################################################################################
 
-format-volume = <label-volume> <bar-volume>
-label-volume = vol %percentage%%
-label-volume-foreground = ${colors.foreground-alt}
+[module/uptime]
+;https://github.com/jaagr/polybar/wiki/User-contributed-modules#uptime
+type = custom/script
+exec = uptime | awk -F, '{sub(".*up ",x,$1);print $1}'
+interval = 100
+label = Uptime : %output%
 
-label-muted = "  Muted "
-label-muted-foreground = ${colors.foreground-alt}
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = " "
+format-prefix-foreground = #C15D3E
+format-underline = #C15D3E
 
-bar-volume-width = 7
-bar-volume-foreground-0 = ${colors.foreground}
-bar-volume-foreground-1 = ${colors.foreground}
-bar-volume-foreground-2 = ${colors.foreground}
-bar-volume-foreground-3 = ${colors.foreground}
-bar-volume-foreground-4 = ${colors.foreground}
-bar-volume-foreground-5 = ${colors.foreground}
-bar-volume-foreground-6 = ${colors.foreground}
+################################################################################
+
+[module/variety]
+type = custom/script
+exec = echo " Variety"
+;exec = echo " "
+interval = 1
+tail = true
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = ""
+format-prefix-foreground = #FFFFF
+format-underline = #0084FF
+click-right = variety --preferences
+click-left = variety --selector
+
+################################################################################
+
+[module/volume]
+;https://github.com/jaagr/polybar/wiki/Module:-volume
+type = internal/volume
+format-volume = "<label-volume>  <bar-volume>"
+
+label-volume = " "
+label-volume-foreground = #40ad4b
+label-muted = muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #40ad4b
+bar-volume-foreground-1 = #40ad4b
+bar-volume-foreground-2 = #40ad4b
+bar-volume-foreground-3 = #40ad4b
+bar-volume-foreground-4 = #40ad4b
+bar-volume-foreground-5 = #40ad4b
+bar-volume-foreground-6 = #40ad4b
 bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 1
-bar-volume-fill = ─
-bar-volume-fill-font = 1
-bar-volume-empty = ─
-bar-volume-empty-font = 1
-bar-volume-empty-foreground = ${colors.foreground-alt}
+bar-volume-indicator = 
+bar-volume-indicator-font = 2
+bar-volume-fill = 
+bar-volume-fill-font = 2
+bar-volume-empty = 
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground}
+format-volume-foreground = ${colors.foreground}
+format-volume-background = ${colors.background}
+format-muted-prefix = "  "
+format-muted-prefix-foreground = "#ff0000"
+format-muted-foreground = ${colors.foreground}
+format-muted-background = ${colors.background}
 
-[module/powermenu]
-type = custom/menu
+################################################################################
 
-expand-right = true
+[module/weather]
+type = custom/script
+interval = 10
+format = <label>
+format-prefix = " "
+format-prefix-foreground = #3EC13F
+format-underline = #3EC13F
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+exec = python -u ~/.config/polybar/scripts/weather.py
+tail = true
 
-format-spacing = 1
+#################################################################################
 
-label-open = "  "
-label-open-foreground = ${colors.secondary}
-label-close = cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
+[module/wired-network]
+;https://github.com/jaagr/polybar/wiki/Module:-network
+type = internal/network
+interface = enp4s0
+;interface = enp14s0
+interval = 3.0
 
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: %ifname% %local_ip%
+label-connected =  %ifname%
+label-disconnected = %ifname% disconnected
 
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
+format-connected-foreground = ${colors.foreground}
+format-connected-background = ${colors.background}
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = #55aa55
+format-connected-prefix-background = ${colors.background}
 
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
+format-disconnected = <label-disconnected>
+format-disconnected-underline = ${colors.alert}
+label-disconnected-foreground = ${colors.foreground}
 
-[settings]
-screenchange-reload = true
-;compositing-background = xor
-; compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-; pseudo-transparency = false
+################################################################################
 
-[global/wm]
-margin-top = 4
-margin-bottom = 5
+[module/wireless-network]
+;https://github.com/jaagr/polybar/wiki/Module:-network
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+label-connected = %essid%
 
-; vim:ft=dosini
+format-connected = <label-connected>
+;format-connected = <ramp-signal> <label-connected>
+format-connected-foreground = ${colors.foreground}
+format-connected-background = ${colors.background}
+format-connected-prefix = "  "
+format-connected-prefix-foreground = #7e52c6
+format-connected-prefix-background = ${colors.background}
+format-connected-underline = #7e52c6
+
+label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.alert}
+label-disconnected-background = ${colors.background}
+
+format-disconnected = <label-disconnected>
+format-disconnected-foreground = ${colors.alert}
+format-disconnected-background = ${colors.background}
+format-disconnected-prefix = "  "
+format-disconnected-prefix-foreground = ${colors.alert}
+format-disconnected-prefix-background = ${colors.background}
+format-disconnected-underline =${colors.alert}
+
+ramp-signal-0 = ▁
+ramp-signal-1 = ▂
+ramp-signal-2 = ▃
+ramp-signal-3 = ▄
+ramp-signal-4 = ▅
+ramp-signal-5 = ▆
+ramp-signal-6 = ▇
+ramp-signal-7 = █
+ramp-signal-foreground = #7e52c6
+
+################################################################################
+
+[module/xbacklight]
+;https://github.com/jaagr/polybar/wiki/Module:-xbacklight
+type = internal/xbacklight
+format = <label> <bar>
+format-prefix = "   "
+format-prefix-foreground = ${colors.foreground}
+format-prefix-background = ${colors.background}
+format-prefix-underline = #9f78e1
+format-underline = #9f78e1
+label = %percentage%%
+bar-width = 10
+bar-indicator = 
+bar-indicator-foreground = #fff
+bar-indicator-font = 2
+bar-fill = 
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = 
+bar-empty-font = 2
+bar-empty-foreground = #fff
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+################################################################################
+
+[module/xkeyboard]
+;https://github.com/jaagr/polybar/wiki/Module:-xkeyboard
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+format-prefix-background = ${colors.background}
+format-prefix-underline = #3ecfb2
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+label-layout = %layout%
+label-layout-underline = #3ecfb2
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.background}
+label-indicator-underline = ${colors.foreground}
+
+################################################################################
+
+[module/xwindow]
+;https://github.com/jaagr/polybar/wiki/Module:-xwindow
+type = internal/xwindow
+
+; Available tokens:
+;   %title%
+; Default: %title%
+label = %title%
+label-maxlen = 50
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+###############################################################################
+
+
+[module/xworkspaces]
+type = internal/xworkspaces
+
+pin-workspaces = false
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+
+
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;
+#icon-5 = 6;
+format = <label-state>
+label-monitor = %name%
+
+label-active = %index%
+label-active-foreground = ${colors.active}
+label-active-background = ${colors.background}
+label-active-underline= #6790eb
+label-active-padding = 2
+
+label-occupied = %index%
+label-occupied-foreground = ${colors.foreground}
+label-occupied-background = ${colors.background}
+label-occupied-padding = 2
+
+label-urgent = %index%
+label-urgent-foreground = ${colors.foreground}
+label-urgent-background = ${colors.alert}
+label-urgent-underline = ${colors.alert}
+label-urgent-padding = 2
+
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
 #+end_src
 ** launch config
 #+begin_src shell :tangle ~/.config/polybar/launch.sh :mkdirp yes :tangle-mode (identity #o755)
-#!/bin/sh
+#!/usr/bin/env sh
 
+# More info : https://github.com/jaagr/polybar/wiki
+
+# Install the following applications for polybar and icons in polybar if you are on ArcoLinuxD
+# awesome-terminal-fonts
+# Tip : There are other interesting fonts that provide icons like nerd-fonts-complete
+# --log=error
 # Terminate already running bar instances
 killall -q polybar
 
-# Launch bar1 and bar2
-polybar main 2>&1 | tee -a /tmp/polybar.log & disown
-# MONITORS=$(xrandr --query | grep " connected" | cut -d" " -f1)
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
-# MONITORS=$MONITORS polybar main;
+desktop=$(echo $DESKTOP_SESSION)
+count=$(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l)
 
-echo "Bars launched..."
-
+case $desktop in
+    bspwm|/usr/share/xsessions/bspwm)
+    if type "xrandr" > /dev/null; then
+      for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+        MONITOR=$m polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
+      done
+    else
+    polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
+    fi
+    # second polybar at bottom
+    # if type "xrandr" > /dev/null; then
+    #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    #     MONITOR=$m polybar --reload mainbar-bspwm-extra -c ~/.config/polybar/config &
+    #   done
+    # else
+    # polybar --reload mainbar-bspwm-extra -c ~/.config/polybar/config &
+    # fi
+    ;;
+esac
 #+end_src
-
 * mpd
 #+begin_src conf :tangle ~/.mpd/mpd.conf :mkdirp yes
 music_directory "/home/hann0t/Music/"
