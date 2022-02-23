@@ -334,6 +334,16 @@
 (setq emms-info-functions '(emms-info-mpd))
 (setq emms-player-mpd-server-name "localhost")
 (setq emms-player-mpd-server-port "6601")
+(defun emms-notify-track-description ()
+  "Use `notify-send' to show the description of the currecnt track."
+  (call-process
+   "notify-send"
+   nil nil nil
+   "-u" "low" "-a" "EMMS"
+   (emms-track-description
+    (emms-playlist-current-selected-track))))
+
+(add-hook 'emms-player-started-hook #'emms-notify-track-description)
 #+end_src
 *** keybindings
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -1002,10 +1012,6 @@ super + Print
     mouse_middle_click = do_action, close_current
     mouse_right_click = close_all
 
-[play_sound]
-    summary = "*"
-    script = /home/hann0t/.config/dunst/soundAlert.sh
-
 [urgency_low]
     background = "#282c34"
     foreground = "#A0A8CD"
@@ -1014,11 +1020,13 @@ super + Print
 [urgency_normal]
     background = "#282c34"
     foreground = "#A0A8CD"
+    script = /home/hann0t/.config/dunst/soundAlert.sh
     timeout = 10
 
 [urgency_critical]
     background = "#282c34"
     foreground = "#E56160"
+    script = /home/hann0t/.config/dunst/soundAlert.sh
     timeout = 30
 
 #+end_src
