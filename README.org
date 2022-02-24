@@ -806,7 +806,7 @@ bspc config gapless_monocle      true
 bspc rule -a firefox desktop='^1'
 bspc rule -a Google-chrome desktop='^1'
 bspc rule -a Emacs desktop='^2' state=tiled follow=on
-bspc rule -a vlc desktop='^5' state=tiled follow=on
+bspc rule -a vlc desktop='^4' state=tiled follow=on
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a mplayer2 state=floating
 # bspc rule -a Kupfer.py focus=on
@@ -1270,8 +1270,8 @@ format-offset =
 
 [colors]
 ; Nord theme ============
-background = #2F343F
-foreground = #f3f4f5
+background = #282c34
+foreground = #bbc2cf
 occupied = #cccccc
 active = #5e81ac
 alert = #d08770
@@ -1353,7 +1353,7 @@ font-3 = "Noto Sans Mono:size=10;0"
 
 modules-left = bspwm xwindow
 modules-center = kernel
-modules-right = pavolume memory2 cpu2 date
+modules-right = memory2 cpu2 pavolume pacman-updates date
 
 tray-detached = false
 tray-offset-x = 0
@@ -1450,15 +1450,15 @@ reverse-scroll = true
 pin-workspaces = true
 
 ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
 ws-icon-5 = 6;
 ws-icon-6 = 7;
 ws-icon-7 = 8;
 ws-icon-8 = 9;
-ws-icon-9 = 10;
+ws-icon-9 = 10;
 ws-icon-default = " "
 
 
@@ -1466,14 +1466,14 @@ format = <label-state> <label-mode>
 
 label-focused = %icon%
 label-focused-background = ${colors.background}
-label-focused-underline= #6790eb
+label-focused-underline= #51afef
 label-focused-padding = 4
-label-focused-foreground = #6790EB
+label-focused-foreground = #4ca6e3
 
 label-occupied = %icon%
 label-occupied-padding = 2
 label-occupied-background = ${colors.background}
-label-occupied-foreground = #6790EB
+label-occupied-foreground = #4ca6e3
 
 label-urgent = %icon%
 label-urgent-padding = 2
@@ -1484,7 +1484,7 @@ label-empty-padding = 2
 label-empty-background = ${colors.background}
 label-monocle = "  "
 label-monocle-foreground = ${colors.foreground}
-label-tiled = "  "
+label-tiled = ""
 label-tiled-foreground = ${colors.foreground}
 label-fullscreen = "  "
 label-fullscreen-foreground = ${colors.foreground}
@@ -1602,8 +1602,8 @@ interval = 1
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
-format-prefix-foreground = #cd1f3f
-format-underline = #cd1f3f
+format-prefix-foreground = #ff6c6b
+format-underline = #e56160
 
 label-font = 3
 
@@ -1636,8 +1636,8 @@ date-alt = " %d-%m-%Y"
 time = %H:%M
 time-alt = %H:%M
 format-prefix = " "
-format-prefix-foreground = #c1941a
-format-underline = #c1941a
+format-prefix-foreground = #a9a1e1
+format-underline = #c678dd
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 label = %date% %time%
@@ -1790,8 +1790,8 @@ interval = 1024
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
-format-prefix-foreground = #0084FF
-format-underline = #0084FF
+format-prefix-foreground = #51afef
+format-underline = #51afef
 
 ################################################################################
 
@@ -1869,8 +1869,8 @@ label = %percentage_used%%
 
 format = Mem <label>
 format-prefix = "  "
-format-prefix-foreground = #3384d0
-format-underline = #3384d0
+format-prefix-foreground = #51afef
+format-underline = #4ca6e3
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
@@ -1998,7 +1998,7 @@ click-right = exec pavucontrol
 click-left = ~/.config/polybar/scripts/pavolume.sh --togmute
 scroll-up = ~/.config/polybar/scripts/pavolume.sh --up
 scroll-down = ~/.config/polybar/scripts/pavolume.sh --down
-format-underline = #3EC13F
+format-underline = #88ab5a
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
