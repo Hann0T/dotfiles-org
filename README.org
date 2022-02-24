@@ -806,6 +806,7 @@ bspc config gapless_monocle      true
 bspc rule -a firefox desktop='^1'
 bspc rule -a Google-chrome desktop='^1'
 bspc rule -a Emacs desktop='^2' state=tiled follow=on
+bspc rule -a vlc desktop='^5' state=tiled follow=on
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a mplayer2 state=floating
 # bspc rule -a Kupfer.py focus=on
@@ -1206,6 +1207,7 @@ paplay /home/hann0t/.config/dunst/plucky.wav
 alias ls="exa -al --color=always --group-directories-first"
 alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 alias dir-size='du -sh'
+alias vlc="devour vlc"
 
 # remove the greeting message
 set -U fish_greeting
