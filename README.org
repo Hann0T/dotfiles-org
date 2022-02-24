@@ -757,7 +757,7 @@ debug:
 #+END_SRC
 * bspwm
 #+BEGIN_SRC shell :tangle ~/.config/bspwm/bspwmrc :mkdirp yes :tangle-mode (identity #o755)
-#! /bin/sh
+#!/bin/sh
 
 # STARTUP
 #pgrep -x sxhkd > /dev/null || sxhkd &
@@ -765,7 +765,7 @@ $HOME/.config/polybar/launch.sh
 sxhkd &
 nm-applet &
 pamac-tray &
-conky -c $HOME/.config/bspwm/system-overview &
+# conky -c $HOME/.config/bspwm/system-overview &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 feh --bg-fill /usr/share/backgrounds/arcolinux/mystery-3840x2160.jpg &
@@ -1322,11 +1322,11 @@ override-redirect = true
 enable-ipc = true
 
 border-size = 0
-;border-left-size = 0
+border-left-size = 5
 ;border-right-size = 25
-border-top-size = 10
+border-top-size = 5
 ;border-bottom-size = 25
-border-color = #00000000
+border-color = #282c34
 
 padding-left = 0
 padding-right = 1
@@ -1342,7 +1342,7 @@ font-3 = "Noto Sans Mono:size=10;0"
 
 modules-left = bspwm xwindow
 modules-center = kernel
-modules-right = memory2 cpu2 pavolume pacman-updates date
+modules-right = memory2 cpu2 filesystem pavolume pacman-updates date
 
 tray-detached = false
 tray-offset-x = 0
@@ -1592,7 +1592,7 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
 format-prefix-foreground = #ff6c6b
-format-underline = #e56160
+format-underline = #E56160
 
 label-font = 3
 
@@ -1745,7 +1745,7 @@ spacing = 4
 format-mounted = <label-mounted>
 format-mounted-foreground = ${colors.foreground}
 format-mounted-background = ${colors.background}
-format-mounted-underline = #fe0000
+format-mounted-underline = #3FC3E5
 
 
 ; Available tokens:
@@ -1758,7 +1758,7 @@ format-mounted-underline = #fe0000
 ;   %free%
 ;   %used%
 ; Default: %mountpoint% %percentage_free%%
-label-mounted = %mountpoint% : %used% used of %total%
+label-mounted = %mountpoint% : free %free%
 
 ; Available tokens:
 ;   %mountpoint%
@@ -1780,7 +1780,7 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
 format-prefix-foreground = #51afef
-format-underline = #51afef
+format-underline = #3FC3E5
 
 ################################################################################
 
@@ -1858,8 +1858,8 @@ label = %percentage_used%%
 
 format = Mem <label>
 format-prefix = "  "
-format-prefix-foreground = #51afef
-format-underline = #4ca6e3
+format-prefix-foreground = #51AFEF
+format-underline = #4CA6E3
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
@@ -1987,7 +1987,7 @@ click-right = exec pavucontrol
 click-left = ~/.config/polybar/scripts/pavolume.sh --togmute
 scroll-up = ~/.config/polybar/scripts/pavolume.sh --up
 scroll-down = ~/.config/polybar/scripts/pavolume.sh --down
-format-underline = #88ab5a
+format-underline = #88AB5A
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
@@ -2339,7 +2339,7 @@ format-background = ${colors.background}
 #+end_src
 ** launch config
 #+begin_src shell :tangle ~/.config/polybar/launch.sh :mkdirp yes :tangle-mode (identity #o755)
-#!/usr/bin/env sh
+#!/bin/sh
 
 # More info : https://github.com/jaagr/polybar/wiki
 
@@ -2409,7 +2409,7 @@ port "6601"
 * ncmpcpp
 ** ncmpcpp_notify
 #+begin_src shell :tangle ~/.ncmpcpp/ncmpcpp_notify.sh :mkdirp yes :tangle-mode (identity #o755)
-#!/bin/bash
+#!/bin/sh
 
 # Send notification with album art when ncmpcpp plays a new song
 # execute_on_song_change must be set in ncmpcpp config
