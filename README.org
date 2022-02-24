@@ -151,7 +151,7 @@
        ;;idris             ; a language you can depend on
        json              ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        ;;latex             ; writing papers in Emacs has never been so fun
@@ -181,7 +181,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;;web               ; the tubes
+       (web +lsp)               ; the tubes
        yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 
@@ -244,13 +244,11 @@
 #+END_SRC
 *** web mode config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-hook 'web-mode-hook 'prettier-js-mode)
 (add-hook 'css-mode-hook 'prettier-js-mode)
 #+END_SRC
 *** javascript config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 (add-hook 'rjsx-mode-hook
            #'(lambda ()
                (define-key rjsx-mode-map "\C-ck" 'js-doc-insert-function-doc)
@@ -260,8 +258,6 @@
 #+END_SRC
 *** typescript config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
 (add-hook 'typescript-mode-hook
            #'(lambda ()
                (define-key typescript-mode-map "\C-ck" 'tide-jsdoc-template)
@@ -382,8 +378,6 @@
 #+END_SRC
 *** modes
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
-(package! web-mode)
-(package! css-mode)
 #+END_SRC
 *** format
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
@@ -772,13 +766,8 @@ sxhkd &
 nm-applet &
 pamac-tray &
 conky -c $HOME/.config/bspwm/system-overview &
-run variety &
-run xfce4-power-manager &
-numlockx on &
-blueberry-tray &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
-run volumeicon &
 feh --bg-fill /usr/share/backgrounds/arcolinux/mystery-3840x2160.jpg &
 emacs --daemon &
 redshift -P -O 2500
@@ -1968,8 +1957,8 @@ label = Repo: %output%
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix = "  "
-format-prefix-foreground = #FFBB00
-format-underline = #FFBB00
+format-prefix-foreground = #ECBE7B
+format-underline = #D4AB6E
 
 ################################################################################
 
