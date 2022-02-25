@@ -202,3 +202,16 @@ startup_slave_screen=visualizer
 execute_on_song_change = ~/.ncmpcpp/ncmpcpp_notify.sh
 
 #+end_src
+* song notification
+#+begin_src sh :tangle ~/.mpd/songNotify.sh :mkdirp yes :tangle-mode (identity #o755)
+#!/bin/sh
+
+# Send notification with album art
+
+readonly MUSIC_DIR="/home/hann0t/Music/"
+readonly SONG_PATH="$(mpc --format '%file%' current)"
+readonly SONG_DIR="$(dirname "${SONG_PATH}")"
+readonly ALBUM_ART_PATH="${MUSIC_DIR}/${SONG_DIR}/cover.ico"
+
+notify-send -i "${ALBUM_ART_PATH}" "♫ Now Playing ♫" "$(mpc --format '%title% - %artist%' current)"
+#+end_src
