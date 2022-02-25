@@ -2,3 +2,4 @@
 #+STARTUP: fold
 
 * Table of Contents
+** [[./doom/README.org][.doom.d]]
