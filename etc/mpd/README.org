@@ -1,0 +1,204 @@
+#+TITLE: mpd things
+#+STARTUP: fold
+
+* mpd
+#+begin_src conf :tangle ~/.mpd/mpd.conf :mkdirp yes
+music_directory "/home/hann0t/Music/"
+playlist_directory "/home/hann0t/Music/"
+db_file "/home/hann0t/.mpd/mpd.db"
+log_file "/home/hann0t/.mpd/mpd.log"
+pid_file "/home/hann0t/.mpd/mpd.pid"
+state_file "/home/hann0t/.mpd/mpdstate"
+# group "audio"
+
+# audio_output {
+# type "alsa"
+# name "My ALSA Device"
+# }
+audio_output {
+	type "pulse"
+	name "My Pulse Output"
+}
+
+audio_output {
+	type "fifo"
+	name "fifo_visualizer"
+	path "/tmp/mpd.fifo"
+	format "44100:16:2"
+}
+
+bind_to_address "127.0.0.1"
+port "6601"
+
+#+end_src
+* ncmpcpp
+** ncmpcpp_notify
+#+begin_src shell :tangle ~/.ncmpcpp/ncmpcpp_notify.sh :mkdirp yes :tangle-mode (identity #o755)
+#!/bin/sh
+
+# Send notification with album art when ncmpcpp plays a new song
+# execute_on_song_change must be set in ncmpcpp config
+
+readonly MUSIC_DIR="/media/hann0t/Music"
+readonly SONG_PATH="$(mpc --format '%file%' current)"
+readonly SONG_DIR="$(dirname "${SONG_PATH}")"
+readonly ALBUM_ART_PATH="${MUSIC_DIR}/${SONG_DIR}/cover.ico"
+
+notify-send -i "${ALBUM_ART_PATH}" "♫ Now Playing ♫" "$(mpc --format '%title% - %artist%' current)"
+#+end_src
+** config
+#+begin_src conf :tangle ~/.ncmpcpp/config :mkdir yes
+#######################################################################
+##   This is configuration file. Copy it to $HOME/.ncmpcpp/config    ##
+##  or $XDG_CONFIG_HOME/ncmpcpp/config and set up your preferences   ##
+#######################################################################
+
+### directories ###
+
+ncmpcpp_directory = ~/.ncmpcpp
+mpd_music_dir = "/media/hann0t/hardDrive/Music/"
+
+mpd_host = "127.0.0.1"
+mpd_port = "6601"
+
+### Directory for storing downloaded lyrics ###
+
+# lyrics_directory = ~/.lyrics
+
+
+################################
+
+% egrep -v '^#' .ncmpcpp/config
+
+visualizer_in_stereo = "no"
+# visualizer_fifo_path = "~/.config/mpd/mpd.fifo"
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_sync_interval = "10"
+visualizer_type = "spectrum"
+# visualizer_look = "▮"
+# visualizer_look = "º|"
+visualizer_look = "▀▋"
+# visualizer_look = "●▮"
+visualizer_color = "blue, cyan, green, yellow, magenta, red, black"
+
+message_delay_time = "2"
+
+playlist_shorten_total_times = "yes"
+playlist_display_mode = "classic"
+playlist_editor_display_mode = "columns"
+
+browser_display_mode = "columns"
+
+search_engine_display_mode = "columns"
+
+autocenter_mode = "yes"
+
+mouse_support = "yes"
+
+centered_cursor = "yes"
+
+user_interface = "classic"
+
+follow_now_playing_lyrics = "yes"
+
+locked_screen_width_part = "60"
+
+display_bitrate = "no"
+
+external_editor = "vim"
+
+progressbar_elapsed_color = "white"
+progressbar_color = "black"
+
+#progressbar_look = "▃▃▃"
+# progressbar_look = "──"
+progressbar_look = "─╼─"
+#progressbar_look = "==─"
+
+header_visibility = "no"
+statusbar_visibility = "yes"
+titles_visibility = "no"
+
+statusbar_color = "white"
+
+enable_window_title = "yes"
+
+now_playing_prefix = "$b$1"
+now_playing_suffix = "$8$/b"
+
+#now_playing_prefix = "$u$2"
+#now_playing_suffix = "$2$/u$2"
+
+song_columns_list_format = "(6)[]{} (23)[cyan]{a} (26)[yellow]{t|f} (40)[green]{b} (4)[blue]{l}"
+
+# song_list_format = " $7%l  $2%t $R$5%a "
+# song_list_format = "$1> $2%a$8 - $3%b - $8%t $R $3%l  "
+song_list_format = "$1> $5%a$8 - $8%t $R $2%l  "
+
+song_status_format = "$b$7♫ $2%a $8- $3%b $8- $8%t "
+song_window_title_format = " {%a} - {%t}"
+
+
+###################
+##  song format  ##
+##
+## For a song format you can use:
+##
+## %l - length
+## %f - filename
+## %D - directory
+## %a - artist
+## %A - album artist
+## %t - title
+## %b - album
+## %y - date
+## %n - track number (01/12 -> 01)
+## %N - full track info (01/12 -> 01/12)
+## %g - genre
+## %c - composer
+## %p - performer
+## %d - disc
+## %C - comment
+## %P - priority
+## $R - begin right alignment
+##
+##
+## Colors:
+##
+## - 0 - default window color (discards all other colors)
+## - 1 - black
+## - 2 - red
+## - 3 - green
+## - 4 - yellow
+## - 5 - blue
+## - 6 - magenta
+## - 7 - cyan
+## - 8 - white
+## - 9 - end of current color
+## - b - bold text
+## - u - underline text
+## - r - reverse colors
+## - a - use alternative character set
+##
+##
+###################################################################
+##  Custom command that will be executed each time song changes  ##
+##
+#execute_on_song_change =
+#
+##
+###########################################################################
+##  Custom command that will be executed each time player state changes  ##
+##    The environment variable MPD_PLAYER_STATE is set to the current    ##
+##     state (either unknown, play, pause, or stop) for its duration     ##
+##
+#
+#execute_on_player_state_change = notify-send "$(mpc current)"
+
+startup_slave_screen=visualizer
+
+# execute_on_song_change="notify-send "Now playing" "$(ncmpcpp -q --current-song="{%a - }{%t}|{%f}")""
+execute_on_song_change = ~/.ncmpcpp/ncmpcpp_notify.sh
+
+#+end_src
