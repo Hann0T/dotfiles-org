@@ -298,7 +298,7 @@
         `(
                 ( "j" "new journal entry for today" entry
                         (file ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")))
-                "* %u [/] \n :PROTPERTIES: \n :time: %<%H:%M> \n :END: \n%?\n"
+                "* %u [/] \n :PROTPERTIES: \n :time: %<%H:%M> \n :END: \n** Routines\n%?\n"
                 :empty-lines 1)
                 ( "u" "new TODO entry for today" entry
                         (file ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")))
@@ -333,15 +333,15 @@
 #+END_SRC
 *** org clock keybindings
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
-(add-hook 'org-mode-hook
-          (lambda ()
-            (setq fill-column 80)
-            (define-key org-mode-map (kbd "SPC-c-i") 'org-clock-in)
-            (define-key org-mode-map (kbd "SPC-c-o") 'org-clock-out)
-            (define-key org-mode-map (kbd "SPC-c-d") 'org-clock-display)
-            (define-key org-mode-map (kbd "SPC-c-r") 'org-clock-report)
-            ))
+;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (setq fill-column 80)
+;;             (define-key org-mode-map (kbd "SPC-c-i") 'org-clock-in)
+;;             (define-key org-mode-map (kbd "SPC-c-o") 'org-clock-out)
+;;             (define-key org-mode-map (kbd "SPC-c-d") 'org-clock-display)
+;;             (define-key org-mode-map (kbd "SPC-c-r") 'org-clock-report)
+;;             ))
 #+END_SRC
 *** treemacs config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
