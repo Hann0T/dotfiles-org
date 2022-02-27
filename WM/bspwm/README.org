@@ -63,6 +63,7 @@ super + Return
 # program launcher
 super + shift + p
   rofi -show run
+  #rofi -show calc -modi calc -no-show-match -no-sort
 
 # program launcher (Apps)
 super + p
