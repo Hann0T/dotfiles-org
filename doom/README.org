@@ -303,11 +303,11 @@
                 ( "u" "new TODO entry for today" entry
                         (file ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")))
                 "** TODO %?[/] \n  + %i\n")
-                ("t" "new TODO" entry (file+headline "~/Documents/org/tasks.org" "Tasks")
+                ("t" "new TODO entry" entry (file+headline "~/Documents/org/tasks.org" "Tasks")
                 "* TODO %?\n  %i\n")
                 ("i" "new IDEA entry" entry (file+headline "~/Documents/org/tasks.org" "Ideas")
                 "* IDEA %?\n  %i\n")
-                ("s" "new TODO entry for study" entry (file+headline "~/Documents/org/study.org" "Study")
+                ("s" "new STUDY entry for study" entry (file+headline "~/Documents/org/study.org" "Study")
                 "* TODO %?\n  %i\n")
                 ("w" "new TODO entry for work" entry (file+headline "~/Documents/org/work.org" "Tasks")
                 "* TODO %?\n  %i\n")
@@ -464,4 +464,14 @@ const $1: React.FC = () => {
 };
 
 export default $1;
+#+end_src
+*** org-mode
+#+begin_src conf :tangle ~/.doom.d/snippets/org-mode/journal-summary :mkdirp yes
+# -*- mode: snippet -*-
+# name: new org clock report
+# key: clt
+# --
+
+#+BEGIN: clocktable :scope tree1 :maxlevel 3 :block untilnow
+
 #+end_src
