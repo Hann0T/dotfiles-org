@@ -298,13 +298,15 @@
         `(
                 ( "j" "new journal entry for today" entry
                         (file ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")))
-                "* %u [/] \n :PROTPERTIES: \n :time: %<%H:%M> \n :END: \n\t%?\n"
+                "* %u [/] \n :PROTPERTIES: \n :time: %<%H:%M> \n :END: \n%?\n"
                 :empty-lines 1)
                 ( "u" "new TODO entry for today" entry
                         (file ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")))
                 "** TODO %?[/] \n  + %i\n")
                 ("t" "new TODO" entry (file+headline "~/Documents/org/tasks.org" "Tasks")
                 "* TODO %?\n  %i\n")
+                ("i" "new IDEA entry" entry (file+headline "~/Documents/org/tasks.org" "Ideas")
+                "* IDEA %?\n  %i\n")
                 ("s" "new TODO entry for study" entry (file+headline "~/Documents/org/study.org" "Study")
                 "* TODO %?\n  %i\n")
                 ("w" "new TODO entry for work" entry (file+headline "~/Documents/org/work.org" "Tasks")
@@ -313,6 +315,34 @@
                 "* TODO %?\n  %i\n")
           )))
 #+end_src
+*** org todos
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(setq org-todo-keywords
+    (quote ((sequence "TODO(t)" "NEXT(n)" "RECALL(r)" "|" "DONE(d)")
+            (sequence "STUDY(s)" "IDEA(i)" "|" "PROJ(p)")
+            (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))))
+
+(setq org-todo-keyword-faces
+    (quote (
+            ("NEXT" :foreground "skyblue" :weight bold)
+            ("IDEA" :foreground "lightyellow" :weight bold)
+            ("WAITING" :foreground "orange" :weight bold)
+            ("HOLD" :foreground "magenta" :weight bold)
+            ("CANCELLED" :foreground "red" :weight bold)
+            )))
+#+END_SRC
+*** org clock keybindings
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq fill-column 80)
+            (define-key org-mode-map (kbd "SPC-c-i") 'org-clock-in)
+            (define-key org-mode-map (kbd "SPC-c-o") 'org-clock-out)
+            (define-key org-mode-map (kbd "SPC-c-d") 'org-clock-display)
+            (define-key org-mode-map (kbd "SPC-c-r") 'org-clock-report)
+            ))
+#+END_SRC
 *** treemacs config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq doom-themes-treemacs-theme "doom-colors")
@@ -344,7 +374,7 @@
 
 (add-hook 'emms-player-started-hook #'emms-notify-track-description)
 #+end_src
-*** keybindings
+*** global keybindings
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (map! :leader
       :desc "open vterm"
