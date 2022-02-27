@@ -250,7 +250,7 @@
 #+END_SRC
 *** org mode config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(setq org-archive-location "~/Documents/org/done.org")
+(setq org-archive-location "~/Documents/org/archive.org")
 
 (defun org-archive-save-buffer ()
   (let ((afile (org-extract-archive-file (org-get-local-archive-location))))
@@ -291,6 +291,28 @@
 (setq org-agenda-files
       (directory-files-recursively "~/Documents/org/" "\\.org$"))
 #+END_SRC
+*** org capture templates
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(after! org
+  (setq org-capture-templates
+        `(
+                ( "j" "new journal entry for today" entry
+                        (file ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")))
+                "* %u [/] \n :PROTPERTIES: \n :time: %<%H:%M> \n :END: \n\t%?\n"
+                :empty-lines 1)
+                ( "u" "new TODO entry for today" entry
+                        (file ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")))
+                "** TODO %?[/] \n  + %i\n")
+                ("t" "new TODO" entry (file+headline "~/Documents/org/tasks.org" "Tasks")
+                "* TODO %?\n  %i\n")
+                ("s" "new TODO entry for study" entry (file+headline "~/Documents/org/study.org" "Study")
+                "* TODO %?\n  %i\n")
+                ("w" "new TODO entry for work" entry (file+headline "~/Documents/org/work.org" "Tasks")
+                "* TODO %?\n  %i\n")
+                ("d" "new TODO entry for Development" entry (file+headline "~/Documents/org/development.org" "Tasks")
+                "* TODO %?\n  %i\n")
+          )))
+#+end_src
 *** treemacs config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq doom-themes-treemacs-theme "doom-colors")
