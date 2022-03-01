@@ -14,7 +14,9 @@ pamac-tray &
 # conky -c $HOME/.config/bspwm/system-overview &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
-feh --bg-fill /usr/share/backgrounds/arcolinux/mystery-3840x2160.jpg &
+# feh --bg-fill /usr/share/backgrounds/arcolinux/mystery-3840x2160.jpg &
+feh --bg-fill /usr/share/backgrounds/arcolinux-sddm-backgrounds/background30.jpg &
+
 emacs --daemon &
 redshift -P -O 2500
 
