@@ -301,8 +301,8 @@
                 "* %u [/] \n :PROTPERTIES: \n :time: %<%H:%M> \n :END: \n** Routines\n%?\n"
                 :empty-lines 1)
                 ( "u" "new TODO entry for today" entry
-                        (file ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")))
-                "** TODO %?[/] \n  + %i\n")
+                        (file+headline ,(concat (file-name-as-directory (concat (expand-file-name org-directory) "journal")) (format-time-string "%Y_%m_%d.org")) "Routines")
+                "** TODO %?\n  %i\n")
                 ("t" "new TODO entry" entry (file+headline "~/Documents/org/tasks.org" "Tasks")
                 "* TODO %?\n  %i\n")
                 ("i" "new IDEA entry" entry (file+headline "~/Documents/org/tasks.org" "Ideas")
@@ -317,19 +317,21 @@
 #+end_src
 *** org todos
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(setq org-todo-keywords
-    (quote ((sequence "TODO(t)" "NEXT(n)" "RECALL(r)" "|" "DONE(d)")
-            (sequence "STUDY(s)" "IDEA(i)" "|" "PROJ(p)")
-            (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))))
+(after! org
+    (setq org-todo-keywords
+    (quote ((sequence "TODO(t)" "NEXT(n)" "RECALL(r)" "STUDY(s)" "IDEA(i)" "|" "DONE(d)")
+            (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))))
 
-(setq org-todo-keyword-faces
-    (quote (
-            ("NEXT" :foreground "skyblue" :weight bold)
-            ("IDEA" :foreground "lightyellow" :weight bold)
-            ("WAITING" :foreground "orange" :weight bold)
-            ("HOLD" :foreground "magenta" :weight bold)
-            ("CANCELLED" :foreground "red" :weight bold)
-            )))
+(after! org
+    (setq org-todo-keyword-faces
+        (quote (
+                ("NEXT" :foreground "skyblue" :weight bold)
+                ("IDEA" :foreground "lightyellow" :weight bold)
+                ("STUDY" :foreground "lightgreen" :weight bold)
+                ("WAITING" :foreground "orange" :weight bold)
+                ("HOLD" :foreground "magenta" :weight bold)
+                ("CANCELLED" :foreground "red" :weight bold)
+                ))))
 #+END_SRC
 *** org clock keybindings
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -469,9 +471,10 @@ export default $1;
 #+begin_src conf :tangle ~/.doom.d/snippets/org-mode/journal-summary :mkdirp yes
 # -*- mode: snippet -*-
 # name: new org clock report
-# key: clt
+# uuid: 1
+# key: clr
 # --
 
-#+BEGIN: clocktable :scope tree1 :maxlevel 3 :block untilnow
-
+,#+BEGIN: clocktable :scope tree1 :maxlevel 3 :block untilnow
+,#+END:
 #+end_src
