@@ -376,6 +376,11 @@
 
 (add-hook 'emms-player-started-hook #'emms-notify-track-description)
 #+end_src
+*** beacon
+Highlight the cursor whenever the window scrolls.
+#+begin_src emacs-lisp :tangle ~/.doom.d/config.el
+(beacon-mode 1)
+#+end_src
 *** global keybindings
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (map! :leader
@@ -412,6 +417,7 @@
 #+END_SRC
 *** modes
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
+(package! beacon)
 #+END_SRC
 *** format
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
