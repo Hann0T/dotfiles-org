@@ -18,7 +18,7 @@ pamac-tray &
 feh --bg-fill /usr/share/backgrounds/arcolinux-sddm-backgrounds/background30.jpg &
 
 emacs --daemon &
-redshift -P -O 2500
+# redshift -l -12:-77
 
 # monitor
 xrandr --output DisplayPort-0 --mode 1920x1080 --rate 119.98
@@ -43,6 +43,7 @@ bspc config gapless_monocle      true
 bspc rule -a firefox desktop='^1'
 bspc rule -a Google-chrome desktop='^1'
 bspc rule -a Emacs desktop='^2' state=tiled follow=on
+bspc rule -a 'Emacs:dired' desktop='^5' state=tiled follow=on
 bspc rule -a vlc desktop='^4' state=tiled follow=on
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a mplayer2 state=floating
@@ -201,7 +202,7 @@ super + x
 
 # emacs
 super + e
-	emacsclient -c -a 'emacs'
+    emacsclient -c -a 'emacs'
 super + d
     emacsclient -c -a '' --eval '(dired nil)'
 
@@ -440,10 +441,10 @@ ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
-ws-icon-4 = 5;
+ws-icon-4 = 5;
 ws-icon-5 = 6;
 ws-icon-6 = 7;
-ws-icon-7 = 8;
+ws-icon-7 = 8;
 ws-icon-8 = 9;
 ws-icon-9 = 10;
 ws-icon-default = " "
