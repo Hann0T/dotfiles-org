@@ -1,4 +1,5 @@
 #+TITLE: Xmonad config
+#+STARTUP: fold
 
 * Dependencies
 + sudo pacman -S xmonad xmonad-contrib
@@ -27,7 +28,7 @@ import XMonad.Hooks.ManageDocks (docksEventHook, ToggleStruts (ToggleStruts), ma
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat)
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..), xmobar, dynamicLog)
 
-    -- Layouts
+-- Layouts
 import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
@@ -248,7 +249,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 #+end_src
 * Workspaces
 #+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
-myWorkspaces = [" www ", " dev ", " term ", " video ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
+myWorkspaces = [" www ", " dev ", " term ", " vid ", " aud ", " chat ", " mus ", " vbox ", " gfx "]
 #+end_src
 * ManageHook
 Sets some rules for certain programs. Examples include forcing certain programs to always float, or to always appear on a certain workspace. Forcing programs to a certain workspace with a doShift requires xdotool if you are using clickable workspaces. You need the className or title of the program. Use xprop to get this info.
@@ -282,7 +283,9 @@ myKeys =
     , ("M-S-q", io exitSuccess)                   -- Quits xmonad
 
       -- KB_GROUP Run Prompt
-    , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
+    -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
+    , ("M-S-<Return>", spawn "rofi -show run") -- rofi
+    , ("M-p", spawn "rofi -show drun -show-icons") -- rofi run prompt
 
       -- KB_GROUP Useful programs to have a keybinding for launch
     , ("M-<Return>", spawn myTerminal)
