@@ -374,6 +374,7 @@
    (emms-track-description
     (emms-playlist-current-selected-track))))
 
+(emms-add-directory-tree emms-source-file-default-directory)
 (add-hook 'emms-player-started-hook #'emms-notify-track-description)
 #+end_src
 *** beacon
