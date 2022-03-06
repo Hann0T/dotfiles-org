@@ -1,0 +1,17 @@
+#+TITLE: scripts
+
+* Kernel Script
+#+begin_src shell :tangle ~/.local/bin/kernel :mkdirp yes :tangle-mode (identity #o755)
+#! /bin/bash
+
+kern="$(uname -r)"
+echo -e "$kern "
+#+end_src
+
+* Pacupdate Script
+#+begin_src shell :tangle ~/.local/bin/pacupdate :mkdirp yes :tangle-mode (identity #o755)
+#!/bin/bash
+
+cupd=$(checkupdates | wc -l)
+echo "$cupd updates "
+#+end_src
