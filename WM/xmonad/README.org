@@ -343,6 +343,10 @@ myKeys =
 
     ,("M-x", spawn "arcolinux-logout")
 
+    , ("<XF86AudioMute>", spawn "amixer set Master toggle")
+    , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
+    , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+
     ,("<Print>", spawn "flameshot gui")
     ,("M-<Print>", spawn "flameshot full -c")
     ]
