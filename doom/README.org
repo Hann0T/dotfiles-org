@@ -191,8 +191,8 @@
 (setq user-full-name "Hans Olivas"
       user-mail-address "hansolivas1@gmail.com")
 
-(setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'normal)
-      doom-big-font(font-spec :family "JetBrains Mono" :size 18 :weight 'normal))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'normal)
+      doom-big-font(font-spec :family "JetBrains Mono" :size 20 :weight 'normal))
 #+END_SRC
 *** emacs theme
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -427,6 +427,7 @@ Highlight the cursor whenever the window scrolls.
 *** utilities
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
 (package! js-doc)
+(package! jest)
 #+END_SRC
 *** org
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
