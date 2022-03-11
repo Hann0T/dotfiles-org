@@ -248,6 +248,12 @@
                (define-key typescript-tsx-mode-map "@" 'js-doc-insert-tag)))
 (add-hook 'typescript-mode-hook 'prettier-js-mode)
 #+END_SRC
+*** jest config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(use-package jest
+  :after (typescript-mode)
+  :hook (typescript-mode . jest-minor-mode))
+#+END_SRC
 *** org mode config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq org-archive-location "~/Documents/org/archive.org")
