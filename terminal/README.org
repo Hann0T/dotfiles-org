@@ -347,3 +347,48 @@ export MPD_PORT="6601"
 # startship
 starship init fish | source
 #+END_SRC
+* zsh
+#+BEGIN_SRC shell :tangle ~/.zshrc :mkdirp yes
+
+# History in cache directory:
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.cache/zsh/history
+
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)       # Include hidden files.
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M viins 'jj' vi-cmd-mode
+bindkey -v '^?' backward-delete-char
+
+# aliases
+alias ls="exa -al --color=always --group-directories-first"
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+alias dir-size='du -sh'
+alias vlc="devour vlc"
+
+export MPD_HOST="127.0.0.1"
+export MPD_PORT="6601"
+
+# shell color scripts
+colorscript random
+
+# starship prompt
+eval "$(starship init zsh)"
+
+# Load zsh-syntax-highlighting (should be last)
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#+END_SRC
