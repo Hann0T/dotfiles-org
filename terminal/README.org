@@ -398,7 +398,10 @@ export MPD_HOST="127.0.0.1"
 export MPD_PORT="6601"
 
 # shell color scripts
-colorscript random
+#colorscript random
+
+# PATH
+export PATH=/home/hann0t/.local/bin:$PATH
 
 # starship prompt
 eval "$(starship init zsh)"
@@ -407,5 +410,5 @@ eval "$(starship init zsh)"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Load zsh-syntax-highlighting (should be last)
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #+END_SRC
