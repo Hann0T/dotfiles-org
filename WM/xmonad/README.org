@@ -130,6 +130,7 @@ myStartUpHook = do
   spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
   spawnOnce "/usr/lib/xfce4/notifyd/xfce4-notifyd &"
   spawnOnce "emacs --daemon &"
+  spawnOnce "clipmenud &"
 #+end_src
 + We killed trayer process earlier in the autostart, so now we sleep for 2 seconds and then restart trayer.
 #+begin_src haskell :tangle ~/.xmonad/xmonad.hs :mkdirp yes
