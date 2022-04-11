@@ -1,0 +1,28 @@
+#+title: EMACS autostart config
+
+* emacsclient.desktop
+#+BEGIN_SRC conf :tangle ~/.local/share/applications/emacsclient.desktop :mkdirp yes
+[Desktop Entry]
+Version=1.0
+Name=GNU Emacs
+GenericName=Text Editor
+Comment=View and edit files
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+Exec=/usr/bin/emacsclient -c -a "" %F
+Icon=/usr/share/icons/hicolor/scalable/apps/emacs-snapshot.svg
+Type=Application
+Terminal=false
+Categories=Utility;Development;TextEditor;
+StartupWMClass=Emacs
+Name[en_US]=GNU Emacs
+#+END_SRC
+* emacs-daemon.desktop
+#+BEGIN_SRC conf :tangle ~/.config/autostart/emacs-daemon.desktop :mkdirp yes
+[Desktop Entry]
+Type=Application
+Exec=emacs --daemon
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name=emacs-daemon
+Comment=emacs server
+#+END_SRC
