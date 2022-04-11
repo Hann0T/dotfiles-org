@@ -436,6 +436,7 @@ Highlight the cursor whenever the window scrolls.
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
 (package! js-doc)
 (package! jest)
+(package! logview)
 #+END_SRC
 *** org
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
