@@ -153,7 +153,7 @@
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
@@ -418,6 +418,11 @@ Highlight the cursor whenever the window scrolls.
 (global-set-key (kbd "<XF86AudioStop>") #'emms-stop)
 (global-set-key (kbd "<XF86AudioPrev>") #'emms-previous)
 (global-set-key (kbd "<XF86AudioNext>") #'emms-next)
+#+END_SRC
+*** rust config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(setq lsp-rust-analyzer-server-display-inlay-hints t)
+(setq rustic-cargo-bin "~/.cargo/bin/cargo")
 #+END_SRC
 ** packages.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el :mkdirp yes
