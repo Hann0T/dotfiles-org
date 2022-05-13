@@ -203,7 +203,7 @@
 #+END_SRC
 *** default shell for emacs
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(setq-default shell-file-name "/usr/bin/fish")
+(setq-default shell-file-name "/usr/bin/zsh")
 #+END_SRC
 *** project tile dir config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
