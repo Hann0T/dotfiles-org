@@ -100,7 +100,7 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
-       ;;(:if IS-MAC macos)  ; improve compatibility with macOS
+       (:if IS-MAC macos)  ; improve compatibility with macOS
        ;;tty               ; improve the terminal Emacs experience
 
        :lang
@@ -193,8 +193,8 @@
 (setq user-full-name "Hans Olivas"
       user-mail-address "hansolivas1@gmail.com")
 
-(setq doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'normal)
-      doom-big-font(font-spec :family "JetBrains Mono" :size 20 :weight 'normal))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 20 :weight 'normal)
+      doom-big-font(font-spec :family "JetBrains Mono" :size 24 :weight 'normal))
 #+END_SRC
 *** emacs theme
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -203,7 +203,7 @@
 #+END_SRC
 *** default shell for emacs
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(setq-default shell-file-name "/usr/bin/zsh")
+(setq-default shell-file-name "/bin/zsh")
 #+END_SRC
 *** project tile dir config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -364,26 +364,6 @@
   (define-key dired-mode-map (kbd "-")
     (lambda () (interactive) (find-alternate-file "..")))
  ))
-#+end_src
-*** emms
-#+begin_src emacs-lisp :tangle ~/.doom.d/config.el
-(setq emms-source-file-default-directory "~/Music/")
-(setq emms-seek-seconds 5)
-(setq emms-player-list '(emms-player-mpd))
-(setq emms-info-functions '(emms-info-mpd))
-(setq emms-player-mpd-server-name "localhost")
-(setq emms-player-mpd-server-port "6601")
-(defun emms-notify-track-description ()
-  "Use `notify-send' to show the description of the currecnt track."
-  (call-process
-   "notify-send"
-   nil nil nil
-   "-u" "low" "-a" "EMMS"
-   (emms-track-description
-    (emms-playlist-current-selected-track))))
-
-(emms-add-directory-tree emms-source-file-default-directory)
-(add-hook 'emms-player-started-hook #'emms-notify-track-description)
 #+end_src
 *** beacon
 Highlight the cursor whenever the window scrolls.
