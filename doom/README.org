@@ -209,21 +209,6 @@
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq projectile-project-search-path '("~/Development/"))
 #+END_SRC
-*** prettier config
-#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(require 'prettier-js)
-(setq prettier-js-args '(
-  "--tab-width" "2"
-  "--trailing-comma" "all"
-  "--single-quote" "true"
-  "--jsx-single-quote" "true"
-  "--bracket-spacing" "true"
-  "--bracket-same-line" "false"
-  "--quote-props" "preserve"
-))
-(add-hook 'json-mode-hook 'prettier-js-mode)
-(add-hook 'php-mode-hook 'prettier-js-mode)
-#+END_SRC
 *** web mode config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (add-hook 'web-mode-hook 'prettier-js-mode)
@@ -403,7 +388,7 @@ Highlight the cursor whenever the window scrolls.
 *** rust config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq lsp-rust-analyzer-server-display-inlay-hints t)
-(setq rustic-cargo-bin "~/.cargo/bin/cargo")
+;; (setq rustic-cargo-bin "~/.cargo/bin/cargo")
 #+END_SRC
 ** packages.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el :mkdirp yes
@@ -416,7 +401,6 @@ Highlight the cursor whenever the window scrolls.
 #+END_SRC
 *** format
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
-(package! prettier-js)
 #+END_SRC
 *** utilities
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
