@@ -195,6 +195,8 @@
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 20 :weight 'normal)
       doom-big-font(font-spec :family "JetBrains Mono" :size 24 :weight 'normal))
+
+(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 #+END_SRC
 *** emacs theme
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
