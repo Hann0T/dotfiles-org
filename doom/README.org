@@ -49,7 +49,7 @@
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       ;;(format +onsave)  ; automated prettiness
+       (format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
@@ -211,8 +211,8 @@
 #+END_SRC
 *** web mode config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(add-hook 'web-mode-hook 'prettier-js-mode)
-(add-hook 'css-mode-hook 'prettier-js-mode)
+;; (add-hook 'web-mode-hook 'prettier-js-mode)
+;; (add-hook 'css-mode-hook 'prettier-js-mode)
 #+END_SRC
 *** javascript config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -220,8 +220,8 @@
            #'(lambda ()
                (define-key rjsx-mode-map "\C-ck" 'js-doc-insert-function-doc)
                (define-key rjsx-mode-map "@" 'js-doc-insert-tag)))
-(add-hook 'js2-mode-hook 'prettier-js-mode)
-(add-hook 'rjsx-mode-hook 'prettier-js-mode)
+;; (add-hook 'js2-mode-hook 'prettier-js-mode)
+;; (add-hook 'rjsx-mode-hook 'prettier-js-mode)
 #+END_SRC
 *** typescript config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -233,7 +233,7 @@
            #'(lambda ()
                (define-key typescript-tsx-mode-map "\C-ck" 'tide-jsdoc-template)
                (define-key typescript-tsx-mode-map "@" 'js-doc-insert-tag)))
-(add-hook 'typescript-mode-hook 'prettier-js-mode)
+;; (add-hook 'typescript-mode-hook 'prettier-js-mode)
 #+END_SRC
 *** jest config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -357,14 +357,6 @@ Highlight the cursor whenever the window scrolls.
 #+end_src
 *** global keybindings
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(map! :leader
-      :desc "open vterm"
-      "v t" #'vterm)
-
-(map! :leader
-      :desc "open vterm in the current buffer"
-      "v T" #'+vterm/here)
-
 (after! evil-snipe
   (evil-snipe-mode -1))
 
@@ -372,17 +364,14 @@ Highlight the cursor whenever the window scrolls.
 
 (evilem-default-keybindings "SPC")
 
+(map! :leader
+      :desc "expand region"
+      "d" #'er/expand-region)
 (global-set-key (kbd "M-k") #'drag-stuff-up)
 (global-set-key (kbd "M-j") #'drag-stuff-down)
 (global-set-key (kbd "M-l") #'sp-backward-barf-sexp)
 (global-set-key (kbd "M-h") #'sp-backward-slurp-sexp)
 (global-set-key (kbd "C-M-l") #'downcase-word)
-(global-set-key (kbd "M-s-p") #'emms-smart-browse)
-;; (global-set-key (kbd "M-s-c") #'emms-player-mpd-update-all-reset-cache)
-(global-set-key (kbd "<XF86AudioPlay>") #'emms-pause)
-(global-set-key (kbd "<XF86AudioStop>") #'emms-stop)
-(global-set-key (kbd "<XF86AudioPrev>") #'emms-previous)
-(global-set-key (kbd "<XF86AudioNext>") #'emms-next)
 (global-set-key (kbd "C-S-b") #'consult-lsp-file-symbols)
 #+END_SRC
 *** rust config
