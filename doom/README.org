@@ -172,7 +172,7 @@
 
        :app
        ;;calendar
-       emms
+       ;;emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
@@ -375,6 +375,8 @@ Highlight the cursor whenever the window scrolls.
 (global-set-key (kbd "M-h") #'sp-backward-slurp-sexp)
 (global-set-key (kbd "C-M-l") #'downcase-word)
 (global-set-key (kbd "C-S-b") #'consult-lsp-file-symbols)
+(global-set-key (kbd "C-c <right>") 'hs-show-block)
+(global-set-key (kbd "C-c <left>") 'hs-hide-block)
 #+END_SRC
 *** rust config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
