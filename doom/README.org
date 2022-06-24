@@ -383,6 +383,11 @@ Highlight the cursor whenever the window scrolls.
 (setq lsp-rust-analyzer-server-display-inlay-hints t)
 ;; (setq rustic-cargo-bin "~/.cargo/bin/cargo")
 #+END_SRC
+*** volar config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(use-package! lsp-volar)
+;; in order to use volar you can put a .volarrc in the root of the project to force enable volar
+#+END_SRC
 ** packages.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el :mkdirp yes
 ;; -*- no-byte-compile: t; -*-
@@ -400,6 +405,7 @@ Highlight the cursor whenever the window scrolls.
 (package! js-doc)
 (package! jest)
 (package! logview)
+(package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
 #+END_SRC
 *** org
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
