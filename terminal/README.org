@@ -607,6 +607,8 @@ bindkey -s '^o' 'lfcd\n'
 alias ls="exa -al --color=always --group-directories-first"
 alias sail="[ -f sail ] && bash sail || bash vendor/bin/sail"
 alias sa="sail artisan"
+alias pa="php artisan"
+alias testf="sail artisan test --filter "
 alias dir-size="du -sh"
 
 # starship prompt
