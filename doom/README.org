@@ -383,10 +383,22 @@ Highlight the cursor whenever the window scrolls.
 (setq lsp-rust-analyzer-server-display-inlay-hints t)
 ;; (setq rustic-cargo-bin "~/.cargo/bin/cargo")
 #+END_SRC
+*** Topsy
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(require 'topsy)
+(add-hook 'prog-mode-hook #'topsy-mode)
+#+END_SRC
 *** volar config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(use-package! lsp-volar)
 ;; in order to use volar you can put a .volarrc in the root of the project to force enable volar
+(use-package! lsp-volar)
+#+END_SRC
+*** php config
+#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
+(setq +php-run-tests-in-docker t)
+(setq lsp-intelephense-multi-root nil)
+(setq lsp-enable-file-watchers nil)
+(setq +php-default-docker-container "laravel.test")
 #+END_SRC
 ** packages.el
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el :mkdirp yes
@@ -406,6 +418,7 @@ Highlight the cursor whenever the window scrolls.
 (package! jest)
 (package! logview)
 (package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
+(package! topsy)
 #+END_SRC
 *** org
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
