@@ -197,6 +197,14 @@
       doom-big-font(font-spec :family "JetBrains Mono" :size 24 :weight 'normal))
 
 (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+
+(setq fancy-splash-image "~/Downloads/doom-emacs-small.png")
+
+;; line spacing
+(defun set-bigger-spacing ()
+  (setq-local default-text-properties '(line-spacing 0.25 line-height 1.25)))
+(add-hook 'text-mode-hook 'set-bigger-spacing)
+(add-hook 'prog-mode-hook 'set-bigger-spacing)
 #+END_SRC
 *** emacs theme
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
