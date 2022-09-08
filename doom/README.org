@@ -196,7 +196,9 @@
 (setq doom-font (font-spec :family "JetBrains Mono" :size 20 :weight 'normal)
       doom-big-font(font-spec :family "JetBrains Mono" :size 24 :weight 'normal))
 
-(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+;; (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+(add-hook 'window-setup-hook 'toggle-frame-maximized t)
+(setq frame-title-format "")
 
 (setq fancy-splash-image "~/Downloads/doom-emacs-small.png")
 
