@@ -212,6 +212,20 @@
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
 (setq doom-theme 'doom-one)
 (setq display-line-numbers-type 'relative)
+
+(defun ligth-theme () (interactive "set the theme to dark theme")
+  (load-theme 'doom-ayu-light t))
+(defun dark-theme () (interactive "set the theme to dark theme")
+  (load-theme 'doom-one t))
+
+(defun start-nyan-mode () (interactive)
+   (setq nyan-mode t
+    (setq nyan-toggle-wavy-trail t)
+   (setq nyan-animate-nyancat t)))
+(defun stop-nyan-mode () (interactive)
+   (setq nyan-toggle-wavy-trail nil
+   (setq nyan-animate-nyancat nil)
+   (setq nyan-mode nil)))
 #+END_SRC
 *** default shell for emacs
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -381,12 +395,14 @@ Highlight the cursor whenever the window scrolls.
       "d" #'er/expand-region)
 (global-set-key (kbd "M-k") #'drag-stuff-up)
 (global-set-key (kbd "M-j") #'drag-stuff-down)
-(global-set-key (kbd "M-l") #'sp-backward-barf-sexp)
-(global-set-key (kbd "M-h") #'sp-backward-slurp-sexp)
+(global-set-key (kbd "M-l") #'forward-word)
+(global-set-key (kbd "M-h") #'backward-word)
 (global-set-key (kbd "C-M-l") #'downcase-word)
 (global-set-key (kbd "C-S-b") #'consult-lsp-file-symbols)
 (global-set-key (kbd "C-c <right>") 'hs-show-block)
 (global-set-key (kbd "C-c <left>") 'hs-hide-block)
+;;(global-set-key (kbd "C-d") '(lambda () (interactive) (evil-scroll-down) (evil-scroll-line-to-center)))
+;;(global-set-key (kbd "C-u") '(lambda () (interactive) (evil-scroll-down) (evil-scroll-line-to-center)))
 #+END_SRC
 *** rust config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -449,6 +465,7 @@ Highlight the cursor whenever the window scrolls.
 (package! logview)
 (package! topsy)
 (package! harpoon)
+(package! nyan-mode)
 #+END_SRC
 *** org
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
