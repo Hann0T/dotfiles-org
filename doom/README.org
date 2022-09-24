@@ -249,9 +249,9 @@
 #+END_SRC
 *** jest config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
-(use-package jest
-  :after (typescript-mode)
-  :hook (typescript-mode . jest-minor-mode))
+;; (use-package jest
+;;   :after (typescript-mode)
+;;   :hook (typescript-mode . jest-minor-mode))
 #+END_SRC
 *** org mode config
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/config.el
@@ -443,16 +443,12 @@ Highlight the cursor whenever the window scrolls.
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
 (package! beacon)
 #+END_SRC
-*** format
-#+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
-#+END_SRC
 *** utilities
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
 (package! js-doc)
-(package! jest)
 (package! logview)
-;;(package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
 (package! topsy)
+(package! harpoon)
 #+END_SRC
 *** org
 #+BEGIN_SRC emacs-lisp :tangle ~/.doom.d/packages.el
